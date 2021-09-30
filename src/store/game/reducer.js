@@ -120,17 +120,7 @@ const reducer = (state = initialState, action) => {
         shuffle,
         my_robot,
       }
-
-    case 'game/robot_set':
-      const { robot } = payload;
-
-      const my_robot = {...robot};
-
-      return {
-        ...state,
-        my_robot,
-      }
-
+      
     default:
       return state;
   }
