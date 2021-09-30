@@ -15,10 +15,12 @@ export const Module = ({ name, description, id, element, stats = [], actions }) 
     </React.Fragment>
   )
 
-  const subheader = stats.map(({ type, value }, index) => (
+  const filtred_stats = stats.filter(({ value }) => value)
+
+  const subheader = filtred_stats.map(({ type, value }, index) => (
     <span key={index} className={`Module__stat Module__stat_type_${type}`}>
-      {value} {EStatsNames[type]}{' '}
-      {index !== stats.length - 1 ? <span> · </span> : ''}
+      {EStatsNames[type]}: {value}
+      {index !== filtred_stats.length - 1 ? <span> · </span> : ''}
     </span>
   ))
 

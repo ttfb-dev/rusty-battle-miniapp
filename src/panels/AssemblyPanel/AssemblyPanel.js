@@ -35,7 +35,7 @@ export const AssemblyPanel = ({ id }) => {
 
   return (
     <Panel id={id} header={<Header title="Сборка" />}>
-      <StatusBar activeIndex={round} />
+      <StatusBar activeIndex={round - 1} />
 
       <div className="AssemblyPanel__descriptionContainer">
         <Title level="2" weight="semibold">
