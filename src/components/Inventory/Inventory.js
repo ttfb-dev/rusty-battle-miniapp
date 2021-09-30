@@ -1,4 +1,5 @@
 import React from 'react'
+import plural from 'plural-ru'
 
 import { Group, Header, Placeholder, Caption, Spacing } from '@vkontakte/vkui'
 
@@ -74,7 +75,14 @@ export const Inventory = ({ modules = [] }) => {
           weight="regular"
           style={{ textAlign: 'center', color: 'var(--text_placeholder)' }}
         >
-          {modules.length} предмета
+          {!modules.length
+            ? 'Нет предметов'
+            : `${modules.length} ${plural(
+                modules.length,
+                'предмет',
+                'предмета',
+                'предметов'
+              )}`}
         </Caption>
         <Spacing />
       </Group>
