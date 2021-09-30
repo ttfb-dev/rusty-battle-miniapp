@@ -1,8 +1,8 @@
-import { setUserId } from './action';
+import { setUserId, getBossName } from './action';
 import { reducer } from './reducer';
 
 const general = {
-  action: { setUserId },
+  action: { setUserId, getBossName },
   reducer,
 };
 

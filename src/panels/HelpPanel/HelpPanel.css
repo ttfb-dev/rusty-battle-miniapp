@@ -1,0 +1,7 @@
+.HelpPanel__button_back {
+  display: block;
+  position: fixed;
+  bottom: 50px;
+  width: 90%;
+  margin-left: 5%;
+}

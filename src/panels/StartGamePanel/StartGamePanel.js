@@ -1,5 +1,5 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { game } from 'store'
 
 import {
@@ -28,6 +28,8 @@ export const StartGamePanel = ({ id }) => {
 
     pushPanel(EPanels.ASSEMBLY)
   }
+
+  const bossName = useSelector((store) => store.general.bossName);
 
   const actions = (
     <div>
@@ -67,7 +69,7 @@ export const StartGamePanel = ({ id }) => {
         }
         action={actions}
       >
-        Собери робота и&nbsp;сражайся с&nbsp;РобоБоссом
+        Собери робота и сразись<br />с повелителем свалки по имени<br />{bossName}
       </Placeholder>
     </Panel>
   )

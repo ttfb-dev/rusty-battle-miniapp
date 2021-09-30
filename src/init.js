@@ -12,6 +12,7 @@ if (creds.userId) {
   // если мы знаем айди, то сохраням его и запрашиваем инфо пользователя
   store.dispatch(general.action.setUserId({ userId: parseInt(creds.userId, 10) }));
   store.dispatch.sync(profile.action.getGameProfile());
+  store.dispatch.sync(general.action.getBossName());
 }
 
 (async () => {
