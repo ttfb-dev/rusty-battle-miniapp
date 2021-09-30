@@ -56,7 +56,7 @@ export const Inventory = ({ modules = [] }) => {
             )
           )
         ) : (
-          <Placeholder>Оружие не добавлено</Placeholder>
+          <Placeholder>Модули не добавлены</Placeholder>
         )}
       </Group>
     )
