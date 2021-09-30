@@ -20,7 +20,7 @@ const App = () => {
     <Provider store={store}>
       <AdaptivityProvider>
         <AppRoot>
-          <View activePanel={activePanel || EPanels.START_GAME} popout={popout}>
+          <View activePanel={activePanel} popout={popout}>
             <StartGamePanel id={EPanels.START_GAME} />
             <HelpPanel id={EPanels.HELP} />
             <AssemblyPanel id={EPanels.ASSEMBLY} />
