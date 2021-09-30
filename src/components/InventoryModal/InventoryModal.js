@@ -1,73 +1,23 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 
-import {
-  ModalPage,
-  Group,
-  Header,
-  Placeholder,
-  Caption,
-  Spacing,
-} from '@vkontakte/vkui'
-
-import { EStatsTypes } from 'constants/stats'
+import { ModalPage } from '@vkontakte/vkui'
 
 import { useRouterService } from 'services/router-service'
 
-import { Module } from 'components/Module'
 import { ModalHeader } from 'components/ModalHeader'
+import { Inventory } from 'components/Inventory'
 
-const MODULES = [
-  {
-    title: 'Голова',
-    module: {
-      name: 'Лазер',
-      element: 'Голова',
-      description: 'В следующий ход восстанавливает 1 очко здоровья',
-      stats: [
-        { type: EStatsTypes.energy, value: 5 },
-        { type: EStatsTypes.damage, value: 5 },
-      ],
-    },
-  },
-  {
-    title: 'Ядро',
-    module: {
-      name: 'Лазер',
-      element: 'Голова',
-      description: 'В следующий ход восстанавливает 1 очко здоровья',
-      stats: [
-        { type: EStatsTypes.energy, value: 5 },
-        { type: EStatsTypes.damage, value: 5 },
-      ],
-    },
-  },
-  {
-    title: 'Руки',
-    module: null,
-  },
-  {
-    title: 'Ноги',
-    module: {
-      name: 'Лазер',
-      element: 'Голова',
-      description: 'В следующий ход восстанавливает 1 очко здоровья',
-      stats: [
-        { type: EStatsTypes.energy, value: 5 },
-        { type: EStatsTypes.damage, value: 5 },
-      ],
-    },
-  },
-]
+const DEFAUT_MODULES = []
 
 export const InventoryModal = ({ id }) => {
+  const modules = useSelector(
+    (state) => state.game.my_robot.modules || DEFAUT_MODULES
+  )
+
   const { setActiveModal } = useRouterService()
 
   const handleClose = () => setActiveModal(null)
-
-  const moduleCount = MODULES.reduce(
-    (acc, { module }) => (module ? acc + 1 : acc),
-    0
-  )
 
   return (
     <ModalPage
@@ -76,29 +26,7 @@ export const InventoryModal = ({ id }) => {
       dynamicContentHeight
       onClose={handleClose}
     >
-      {MODULES.map(({ title, module }, index) => (
-        <Group
-          key={index}
-          header={<Header mode="secondary">{title.toUpperCase()}</Header>}
-          separator="hide"
-        >
-          {module ? (
-            <Module {...module} />
-          ) : (
-            <Placeholder>Оружие не добавлено</Placeholder>
-          )}
-        </Group>
-      ))}
-      <Group separator="hide">
-        <Caption
-          level="1"
-          weight="regular"
-          style={{ textAlign: 'center', color: 'var(--text_placeholder)' }}
-        >
-          {moduleCount} предмета
-        </Caption>
-        <Spacing />
-      </Group>
+      <Inventory modules={modules} />
     </ModalPage>
   )
 }
