@@ -91,7 +91,7 @@ export const AssemblyPanel = ({ id }) => {
                     ) 
                   }
                   return (
-                    <Button mode="secondary" before={<Icon16Sync />} onClick={() => {setModule(module.id, slot)}}>Заменить {installed_module_in_slot[0].title}</Button>
+                    <Button mode="secondary" before={<Icon16Sync />} onClick={() => {setModule(module.id, slot)}}>Заменить ({installed_module_in_slot[0].title})</Button>
                   )
                 })}
               </React.Fragment>
