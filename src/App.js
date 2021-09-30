@@ -9,6 +9,8 @@ import { HelpPanel } from 'panels/HelpPanel'
 import { AssemblyPanel } from 'panels/AssemblyPanel'
 import { useRouterService } from 'services/router-service'
 
+import { Modals } from 'components/Modals'
+
 import { store } from './store'
 
 const App = () => {
@@ -20,7 +22,7 @@ const App = () => {
     <Provider store={store}>
       <AdaptivityProvider>
         <AppRoot>
-          <View activePanel={activePanel} popout={popout}>
+          <View activePanel={activePanel} popout={popout} modal={<Modals />}>
             <StartGamePanel id={EPanels.START_GAME} />
             <HelpPanel id={EPanels.HELP} />
             <AssemblyPanel id={EPanels.ASSEMBLY} />

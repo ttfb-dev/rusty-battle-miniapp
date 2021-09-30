@@ -2,6 +2,10 @@ import React from 'react'
 
 import { Title, Caption, Button } from '@vkontakte/vkui'
 
+import { EModalIds } from 'constants/modals'
+import { EStatsTypes } from 'constants/stats'
+import { useRouterService } from 'services/router-service'
+
 import { Panel } from 'components/Panel'
 import { Header } from 'components/Header'
 import { StatusBar } from 'components/StatusBar'
@@ -14,10 +18,9 @@ import { ESlotsTypes, ESlotsTypesIn } from 'constants/slots'
 import './AssemblyPanel.css'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { game } from 'store';
+import { game } from 'store'
 
 export const AssemblyPanel = ({ id }) => {
-
   const modules = useSelector((store) => store.game.shuffle.modules)
   const round = useSelector((store) => store.game.shuffle.round)
   const robot = useSelector((store) => store.game.my_robot)
@@ -25,8 +28,9 @@ export const AssemblyPanel = ({ id }) => {
   const dispatch = useDispatch()
 
   const setModule = (module_id, slot) => {
-    dispatch.sync(game.action.setModule({battle_id, module_id, slot}))
+    dispatch.sync(game.action.setModule({ battle_id, module_id, slot }))
   }
+  const { setActiveModal } = useRouterService()
 
   return (
     <Panel id={id} header={<Header title="Сборка" />}>
@@ -43,42 +47,74 @@ export const AssemblyPanel = ({ id }) => {
       </div>
 
       <StatsBar
-        health={{ value: robot.specifications.health.total, aditionValue: '+' + (robot.specifications.health.total - robot.specifications.health.base) }}
-        energy={{ value: robot.specifications.energy.total, aditionValue: '+' + (robot.specifications.energy.total - robot.specifications.energy.base) }}
+        health={{
+          value: robot.specifications.health.total,
+          aditionValue:
+            '+' +
+            (robot.specifications.health.total -
+              robot.specifications.health.base),
+        }}
+        energy={{
+          value: robot.specifications.energy.total,
+          aditionValue:
+            '+' +
+            (robot.specifications.energy.total -
+              robot.specifications.energy.base),
+        }}
+        onClick={() => setActiveModal('inventory')}
       />
 
-      {modules && modules.map((module, index) => {
+      {modules &&
+        modules.map((module, index) => {
+          const modules_installed = robot.modules.filter((robot_module) =>
+            module.slots.includes(robot_module.slot)
+          )
 
-        const modules_installed = robot.modules.filter((robot_module) => module.slots.includes(robot_module.slot))
-
-        return (<Module
-          id={index + module.id}
-          key={index + module.id}
-          name={module.title}
-          element={ESlotsTypes[module.slots.join(', ')]}
-          description={module.description}
-          stats={[
-            { type: EStatsTypes.energy, value: module.energy * -1 },
-            { type: EStatsTypes.damage, value: module.damage },
-          ]}
-          actions={
-            <React.Fragment>
-              {module.slots.map((slot) => {
-                const installed_module_in_slot = modules_installed.filter((robot_module) => robot_module.slot === slot)
-                if (installed_module_in_slot.length === 0) {
-                  return (
-                    <Button mode="primary" onClick={() => {setModule(module.id, slot)}}>Установить {ESlotsTypesIn[slot]}</Button>
-                  ) 
-                }
-                return (
-                  <Button mode="primary" onClick={() => {setModule(module.id, slot)}}>Заменить {installed_module_in_slot[0].title}</Button>
-                )
-              })}
-            </React.Fragment>
-          }
-        />)
-      })}
-      
+          return (
+            <Module
+              id={index + module.id}
+              key={index + module.id}
+              name={module.title}
+              element={ESlotsTypes[module.slots.join(', ')]}
+              description={module.description}
+              stats={[
+                { type: EStatsTypes.energy, value: module.energy * -1 },
+                { type: EStatsTypes.damage, value: module.damage },
+              ]}
+              actions={
+                <React.Fragment>
+                  {module.slots.map((slot) => {
+                    const installed_module_in_slot = modules_installed.filter(
+                      (robot_module) => robot_module.slot === slot
+                    )
+                    if (installed_module_in_slot.length === 0) {
+                      return (
+                        <Button
+                          mode="primary"
+                          onClick={() => {
+                            setModule(module.id, slot)
+                          }}
+                        >
+                          Установить {ESlotsTypesIn[slot]}
+                        </Button>
+                      )
+                    }
+                    return (
+                      <Button
+                        mode="primary"
+                        onClick={() => {
+                          setModule(module.id, slot)
+                        }}
+                      >
+                        Заменить {installed_module_in_slot[0].title}
+                      </Button>
+                    )
+                  })}
+                </React.Fragment>
+              }
+            />
+          )
+        })}
     </Panel>
   )
 }
