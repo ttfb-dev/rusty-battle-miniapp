@@ -78,7 +78,7 @@ export const AssemblyPanel = ({ id }) => {
             element={ESlotsTypes[module.slots.join(', ')]}
             description={module.description}
             stats={[
-              { type: EStatsTypes.energy, value: module.energy * -1 },
+              { type: EStatsTypes.energy, value: module.energy },
               { type: EStatsTypes.damage, value: module.damage },
             ]}
             actions={
