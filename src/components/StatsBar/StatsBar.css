@@ -1,0 +1,14 @@
+.StatsBar__allStats {
+  display: flex;
+  margin: 0;
+  padding-left: 0;
+}
+
+.StatsBar__stat {
+  list-style-type: none;
+  margin-right: 12px;
+}
+
+.StatsBar__button {
+  padding-right: 0;
+}
