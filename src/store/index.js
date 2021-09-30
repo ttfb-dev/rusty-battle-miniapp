@@ -1,6 +1,7 @@
 import { CrossTabClient } from '@logux/client';
 import { createStoreCreator } from '@logux/redux';
 import { combineReducers } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension'
 
 import { creds } from '../shared/config';
 
@@ -15,11 +16,16 @@ const client = new CrossTabClient({
 });
 
 const createStore = createStoreCreator(client);
-const store = createStore(
+let store = {}
+
+store = createStore(
   combineReducers({
     general: general.reducer,
     profile: profile.reducer,
   }),
+  store,
+  composeWithDevTools(),
 );
+
 
 export { general, profile, store };

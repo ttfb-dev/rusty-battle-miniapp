@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { Provider } from 'react-redux'
 import bridge from '@vkontakte/vk-bridge';
 import { View, ScreenSpinner, AdaptivityProvider, AppRoot } from '@vkontakte/vkui';
 import '@vkontakte/vkui/dist/vkui.css';
+
+import { store } from './store'
 
 import Home from './panels/Home';
 import Persik from './panels/Persik';
@@ -32,6 +35,7 @@ const App = () => {
 	};
 
 	return (
+		<Provider store={store}>
 		<AdaptivityProvider>
 			<AppRoot>
 				<View activePanel={activePanel} popout={popout}>
@@ -40,6 +44,7 @@ const App = () => {
 				</View>
 			</AppRoot>
 		</AdaptivityProvider>
+		</Provider>
 	);
 }
 
