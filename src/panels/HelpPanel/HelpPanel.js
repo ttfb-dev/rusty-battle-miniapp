@@ -13,7 +13,6 @@ import {
   PanelHeader,
   CardGrid,
   ContentCard,
-  Spacing,
 } from '@vkontakte/vkui'
 
 export const HelpPanel = ({ id }) => {

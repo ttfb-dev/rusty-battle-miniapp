@@ -1,8 +1,8 @@
-import { startGame, setModule } from './action';
+import { startGame, setModule, startFight } from './action';
 import { reducer } from './reducer';
 
 const game = {
-  action: { startGame, setModule },
+  action: { startGame, setModule, startFight },
   reducer,
 };
 

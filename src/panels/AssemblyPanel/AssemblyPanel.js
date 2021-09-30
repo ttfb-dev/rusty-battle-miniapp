@@ -13,6 +13,7 @@ import { Module } from 'components/Module'
 import { Icon16Sync } from '@vkontakte/icons';
 
 import { EModalIds } from 'constants/modals';
+import { EPanels } from 'constants/panels'
 import { EStatsTypes } from 'constants/stats'
 import { ESlotsTypes, ESlotsTypesIn } from 'constants/slots'
 
@@ -27,10 +28,24 @@ export const AssemblyPanel = ({ id }) => {
   const robot = useSelector((store) => store.game.my_robot)
   const battle_id = useSelector((store) => store.game.battle_id)
   const dispatch = useDispatch()
+  const { pushPanel } = useRouterService()
 
-  const setModule = (module_id, slot) => {
-    dispatch.sync(game.action.setModule({ battle_id, module_id, slot }))
+  const setModule = async (module_id, slot) => {
+    let forceStart = false;
+    if (round === 10) {
+      forceStart = true;
+    }
+    await dispatch.sync(game.action.setModule({ battle_id, module_id, slot, current_round_number: round }))
+    if (forceStart) {
+      await startFight()
+    }
   }
+
+  const startFight = async () => {
+    await dispatch.sync(game.action.startFight({battle_id}))
+    pushPanel(EPanels.FIGHT)
+  }
+
   const { setActiveModal } = useRouterService()
 
   return (
@@ -99,10 +114,13 @@ export const AssemblyPanel = ({ id }) => {
           />)
       })}
       <Div>
-        <Button stretched size="m" mode="tertiary" onClick={() => {setModule(null, null)}}>Начать бой раньше</Button>
-        <Spacing size={12}/>
-        <Separator />
-        <Spacing size={12}/>
+        {round >= 2 && robot.modules.length >= 1 && <>
+          <Button stretched size="m" mode="tertiary" onClick={() => {startFight()}}>Начать бой раньше</Button>
+          <Spacing size={12}/>
+          <Separator />
+          <Spacing size={12}/>
+          </>
+        }
         <Button stretched size="m" mode="secondary" onClick={() => {setModule(null, null)}}>Пропустить</Button>
       </Div>
     </Panel>

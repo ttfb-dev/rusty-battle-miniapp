@@ -1,4 +1,4 @@
-import { startGame } from './action';
+import { startGame, startFight } from './action';
 
 const initialState = {
   battle_id: null,
@@ -106,25 +106,32 @@ const reducer = (state = initialState, action) => {
 
   switch (type) {
     case startGame.type + '_success':
-      const { battle_id, status } = payload;
-
       return {
         ...state,
-        status,
-        battle_id,
+        status: payload.status,
+        battle_id: payload.battle_id,
       };
 
     case 'game/shuffle_set':
-      const { modules, round, robot } = payload;
+      const shuffle = {
+        ...state.shuffle, 
+        modules: payload.modules, 
+        round: payload.round
+      };
 
-      const shuffle = {...state.shuffle, modules, round};
-
-      const my_robot = {...robot};
+      const my_robot = {...payload.robot};
 
       return {
         ...state,
         shuffle,
         my_robot,
+      }
+
+    case startFight.type + '_success':
+      return {
+        ...state,
+        boss: {...payload.boss},
+        status: payload.status
       }
       
     default:
