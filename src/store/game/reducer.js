@@ -4,33 +4,8 @@ const initialState = {
   battle_id: null,
   status: null,
   shuffle: {
-    modules: [
-      {
-        id: 'garbage',
-        title: '',
-        description: '',
-        energy: 0,
-        status: '',
-        image: '',
-        place: '',
-      }, {
-        id: '',
-        title: '',
-        description: '',
-        energy: 0,
-        status: '',
-        image: '',
-        place: 'head',
-      }, {
-        id: '',
-        title: '',
-        description: '',
-        energy: 0,
-        status: '',
-        image: '',
-        place: 'head',
-      },
-    ],
+    round: 0,
+    modules: [],
   },
   my_robot: {
     specifications: {
@@ -45,57 +20,8 @@ const initialState = {
         value: 0,
       }
     },
-    effects: [
-      {
-        id: '',
-        title: '',
-        description: '',
-        image: '',
-      },
-    ],
-    modules: [
-      {
-        id: '',
-        title: '',
-        description: '',
-        energy: 0,
-        status: '',
-        image: '',
-        place: 'head',
-      }, {
-        id: '',
-        title: '',
-        description: '',
-        energy: 0,
-        status: '',
-        image: '',
-        place: 'left_hand',
-      }, {
-        id: '',
-        title: '',
-        description: '',
-        energy: 0,
-        status: '',
-        image: '',
-        place: 'right_hand',
-      }, {
-        id: '',
-        title: '',
-        description: '',
-        energy: 0,
-        status: '',
-        image: '',
-        place: 'core',
-      }, {
-        id: '',
-        title: '',
-        description: '',
-        energy: 0,
-        status: '',
-        image: '',
-        place: 'legs',
-      }
-    ],
+    effects: [],
+    modules: [],
   },
   boss: {
     specifications: {
@@ -110,57 +36,8 @@ const initialState = {
         value: 0,
       }
     },
-    effects: [
-      {
-        id: '',
-        title: '',
-        description: '',
-        image: '',
-      },
-    ],
-    modules: [
-      {
-        id: '',
-        title: '',
-        description: '',
-        energy: 0,
-        status: '',
-        image: '',
-        place: 'head',
-      }, {
-        id: '',
-        title: '',
-        description: '',
-        energy: 0,
-        status: '',
-        image: '',
-        place: 'left_hand',
-      }, {
-        id: '',
-        title: '',
-        description: '',
-        energy: 0,
-        status: '',
-        image: '',
-        place: 'right_hand',
-      }, {
-        id: '',
-        title: '',
-        description: '',
-        energy: 0,
-        status: '',
-        image: '',
-        place: 'core',
-      }, {
-        id: '',
-        title: '',
-        description: '',
-        energy: 0,
-        status: '',
-        image: '',
-        place: 'legs',
-      }
-    ],
+    effects: [],
+    modules: [],
   }
 };
 
@@ -176,6 +53,48 @@ const initialState = {
  * disabled - заблокирован: нельзя активировать
  */
 
+/* shuffle.modules[] :
+{
+  id: '',
+  title: '',
+  description: '',
+  energy: 0,
+  image: '',
+  slots: [],
+}
+*/
+
+/* robot.modules[] :
+{
+  id: '',
+  title: '',
+  description: '',
+  energy: 0,
+  status: '',
+  image: '',
+  slot: 'head',
+}
+*/
+
+/** slots:
+  'hand_l';
+  'hand_r';
+  'head';
+  'core';
+  'feet';
+ */
+
+/* robot.effects[] :
+{
+  id: '',
+  title: '',
+  description: '',
+  image: '',
+}
+*/
+
+
+
 const reducer = (state = initialState, action) => {
   const { type, ...payload } = action;
 
@@ -188,6 +107,29 @@ const reducer = (state = initialState, action) => {
         status,
         battle_id,
       };
+
+    case 'game/shuffle_set':
+      const { modules, round, robot } = payload;
+
+      const shuffle = {...state.shuffle, modules, round};
+
+      const my_robot = {...robot};
+
+      return {
+        ...state,
+        shuffle,
+        my_robot,
+      }
+
+    case 'game/robot_set':
+      const { robot } = payload;
+
+      const my_robot = {...robot};
+
+      return {
+        ...state,
+        my_robot,
+      }
 
     default:
       return state;
