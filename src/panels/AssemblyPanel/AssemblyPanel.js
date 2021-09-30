@@ -2,17 +2,21 @@ import React from 'react'
 
 import { Title, Caption, Button } from '@vkontakte/vkui'
 
+import { EModalIds } from 'constants/modals'
+import { EStatsTypes } from 'constants/stats'
+import { useRouterService } from 'services/router-service'
+
 import { Panel } from 'components/Panel'
 import { Header } from 'components/Header'
 import { StatusBar } from 'components/StatusBar'
 import { StatsBar } from 'components/StatsBar'
 import { Module } from 'components/Module'
 
-import { EStatsTypes } from 'constants/stats'
-
 import './AssemblyPanel.css'
 
 export const AssemblyPanel = ({ id }) => {
+  const { setActiveModal } = useRouterService()
+
   return (
     <Panel id={id} header={<Header title="Сборка" />}>
       <StatusBar activeIndex={9} />
@@ -30,6 +34,7 @@ export const AssemblyPanel = ({ id }) => {
       <StatsBar
         health={{ value: 5, aditionValue: '+1' }}
         energy={{ value: 5, aditionValue: '+1' }}
+        onClick={() => setActiveModal('inventory')}
       />
 
       <Module

@@ -3,7 +3,10 @@ import React from 'react'
 import { RouterServiceContext } from './RouterServiceContext'
 
 export const RouterServiceProvider = ({ children, initPanel }) => {
+  const [activeModal, setActiveModal] = React.useState(null)
+
   const [history, setHistory] = React.useState([initPanel])
+
   const activePanel = history[history.length - 1]
 
   const pushPanel = React.useCallback((newPanel) => {
@@ -20,8 +23,10 @@ export const RouterServiceProvider = ({ children, initPanel }) => {
       popPanel,
       pushPanel,
       activePanel,
+      activeModal,
+      setActiveModal,
     }),
-    [history, activePanel, pushPanel]
+    [history, activePanel, popPanel, pushPanel, activeModal, setActiveModal]
   )
 
   return (

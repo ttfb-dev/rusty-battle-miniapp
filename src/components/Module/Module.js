@@ -16,7 +16,7 @@ export const Module = ({ name, element, stats = [], actions }) => {
   )
 
   const subheader = stats.map(({ type, value }, index) => (
-    <span className={`Module__stat Module__stat_type_${type}`}>
+    <span key={index} className={`Module__stat Module__stat_type_${type}`}>
       {value} {EStatsNames[type]}{' '}
       {index !== stats.length - 1 ? <span> · </span> : ''}
     </span>

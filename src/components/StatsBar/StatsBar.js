@@ -7,7 +7,7 @@ import { StatInfo } from 'components/StatInfo'
 
 import './StatsBar.css'
 
-export const StatsBar = ({ health, energy }) => {
+export const StatsBar = ({ health, energy, onClick }) => {
   const before = (
     <ul className="StatsBar__allStats">
       <li className="StatsBar__stat">
@@ -35,6 +35,7 @@ export const StatsBar = ({ health, energy }) => {
       mode="tertiary"
       hasHover={false}
       after={<Icon16Chevron />}
+      onClick={onClick}
     >
       Мои предметы
     </Button>
