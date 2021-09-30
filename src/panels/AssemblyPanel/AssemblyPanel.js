@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Title, Caption, Button } from '@vkontakte/vkui'
+import { Title, Caption, Button, Div, Separator, Spacing } from '@vkontakte/vkui'
 
 import { Panel } from 'components/Panel'
 import { Header } from 'components/Header'
@@ -78,7 +78,13 @@ export const AssemblyPanel = ({ id }) => {
           }
         />)
       })}
-      
+      <Div>
+        <Button stretched size="m" mode="tertiary" onClick={() => {setModule(null, null)}}>Начать бой раньше</Button>
+        <Spacing size={12}/>
+        <Separator />
+        <Spacing size={12}/>
+        <Button stretched size="m" mode="secondary" onClick={() => {setModule(null, null)}}>Пропустить</Button>
+      </Div>
     </Panel>
   )
 }
