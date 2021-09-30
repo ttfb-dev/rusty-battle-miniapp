@@ -33,6 +33,7 @@ export const StatsBar = ({ health, energy }) => {
     <Button
       className="StatsBar__button"
       mode="tertiary"
+      hasHover={false}
       after={<Icon16Chevron />}
     >
       Мои предметы
