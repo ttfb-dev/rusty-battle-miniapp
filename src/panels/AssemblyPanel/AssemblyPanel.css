@@ -1,0 +1,9 @@
+.AssemblyPanel__descriptionContainer {
+  padding: 16px 24px;
+  text-align: center;
+}
+
+.AssemblyPanel__description {
+  margin-top: 8px;
+  color: var(--text_subhead);
+}

@@ -1,0 +1,23 @@
+.StatInfo {
+  display: flex;
+  font-size: 15px;
+  line-height: 20px;
+  font-weight: 500;
+  align-items: center;
+}
+
+.StatInfo_health {
+  color: var(--dynamic_red);
+}
+
+.StatInfo_energy {
+  color: var(--dynamic_purple);
+}
+
+.StatInfo__iconContainer {
+  margin-right: 4px;
+}
+
+.StatInfo__aditionValue {
+  color: var(--text_primary);
+}
