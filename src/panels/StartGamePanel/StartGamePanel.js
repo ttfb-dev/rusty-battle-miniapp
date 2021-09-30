@@ -11,7 +11,7 @@ import {
 } from '@vkontakte/vkui'
 
 import { Panel } from 'components/Panel'
-import { GEME_NAME } from 'constants/common'
+import { GAME_NAME } from 'constants/common'
 import { useRouterService } from 'services/router-service'
 import { EPanels } from 'constants/panels'
 
@@ -24,7 +24,7 @@ export const StartGamePanel = ({ id }) => {
   const startGame = async () => {
     setIsLoading(true)
     await dispatch.sync(game.action.startGame())
-    setIsLoading(true)
+    setIsLoading(false)
 
     pushPanel(EPanels.ASSEMBLY)
   }
@@ -56,7 +56,7 @@ export const StartGamePanel = ({ id }) => {
   return (
     <Panel
       id={id}
-      header={<PanelHeader separator={false}>{GEME_NAME}</PanelHeader>}
+      header={<PanelHeader separator={false}>{GAME_NAME}</PanelHeader>}
     >
       <Placeholder
         style={{ marginTop: '24.47368421vh' }}
