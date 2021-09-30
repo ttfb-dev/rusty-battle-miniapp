@@ -7,7 +7,7 @@ import { EStatsNames } from 'constants/stats'
 
 import './Module.css'
 
-export const Module = ({ name, element, stats = [], actions }) => {
+export const Module = ({ name, description, id, element, stats = [], actions }) => {
   const header = (
     <React.Fragment>
       <span>{name}</span>
@@ -24,6 +24,7 @@ export const Module = ({ name, element, stats = [], actions }) => {
 
   return (
     <Banner
+      key={id}
       before={
         <Avatar mode="image">
           <Icon28MusicOutline />
@@ -31,7 +32,7 @@ export const Module = ({ name, element, stats = [], actions }) => {
       }
       header={header}
       subheader={subheader}
-      text="В следующий ход восстанавливает 1 очко здоровья"
+      text={description}
       actions={actions}
     />
   )

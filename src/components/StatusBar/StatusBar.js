@@ -12,7 +12,7 @@ export const StatusBar = ({ activeIndex = 0, count = 10 }) => {
           ? 'default'
           : i > 6
           ? 'danger'
-          : i > 1
+          : i > 2
           ? 'warning'
           : 'normal'
 
@@ -25,7 +25,7 @@ export const StatusBar = ({ activeIndex = 0, count = 10 }) => {
     }
 
     return accItems
-  }, [count])
+  }, [count, activeIndex])
 
   return <ul className="StatusBar">{items}</ul>
 }
