@@ -2,8 +2,6 @@ import React from 'react'
 
 import { Title, Caption, Button } from '@vkontakte/vkui'
 
-import { EModalIds } from 'constants/modals'
-import { EStatsTypes } from 'constants/stats'
 import { useRouterService } from 'services/router-service'
 
 import { Panel } from 'components/Panel'
@@ -12,6 +10,7 @@ import { StatusBar } from 'components/StatusBar'
 import { StatsBar } from 'components/StatsBar'
 import { Module } from 'components/Module'
 
+import { EModalIds } from 'constants/modals'
 import { EStatsTypes } from 'constants/stats'
 import { ESlotsTypes, ESlotsTypesIn } from 'constants/slots'
 
