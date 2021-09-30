@@ -6,6 +6,7 @@ import { creds } from '../shared/config';
 
 import { general } from './general';
 import { profile } from './profile';
+import { game } from './game';
 
 const client = new CrossTabClient({
   subprotocol: '1.0.0',
@@ -19,7 +20,8 @@ const store = createStore(
   combineReducers({
     general: general.reducer,
     profile: profile.reducer,
+    game: game.reducer,
   }),
 );
 
-export { general, profile, store };
+export { general, profile, game, store };
