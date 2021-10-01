@@ -2,19 +2,15 @@ import React from 'react'
 
 import { Panel } from 'components/Panel'
 import { useRouterService } from 'services/router-service'
-import { EPanels } from 'constants/panels'
 import { useSelector } from 'react-redux'
 
 import './FightPanel.css'
 
 import {
-  Button,
   Div,
   PanelHeader,
-  CardGrid,
-  ContentCard,
-  Spacing,
 } from '@vkontakte/vkui'
+import { InventoryFight } from 'components/InventoryFight'
 
 export const FightPanel = ({ id }) => {
   const { pushPanel } = useRouterService()
@@ -27,7 +23,7 @@ export const FightPanel = ({ id }) => {
       header={<PanelHeader separator={false}>Битва</PanelHeader>}
     >
       <Div>
-        FightPanel
+        <InventoryFight />
       </Div>
     </Panel>
   )
