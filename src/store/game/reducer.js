@@ -189,7 +189,7 @@ const reducer = (state = initialState, action) => {
     case fightStep.type + '_success':
       return {
         ...state,
-        log: [...payload.log],
+        log: payload.log ? [...payload.log] : [],
         status: payload.status,
         winner: payload.winner,
         boss: payload.boss ? { ...payload.boss } : state.boss,
