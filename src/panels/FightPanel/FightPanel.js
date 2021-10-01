@@ -75,7 +75,7 @@ export const FightPanel = ({ id }) => {
                 health: { ...boss.specifications.health },
                 energy: { ...boss.specifications.energy },
               }}
-              onClick={() => null}
+              onClick={() => setActiveModal(EModalIds.bossInventory)}
             />
           </Div>
           <Spacing />

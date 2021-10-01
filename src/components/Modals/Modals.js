@@ -5,6 +5,7 @@ import { ModalRoot } from '@vkontakte/vkui'
 import { useRouterService } from 'services/router-service'
 
 import { InventoryModal } from 'components/InventoryModal'
+import { BossInventoryModal } from 'components/BossInventoryModal'
 import { CloseGameModal } from 'components/CloseGameModal'
 import { EModalIds } from 'constants/modals'
 
@@ -14,6 +15,7 @@ export const Modals = () => {
   return (
     <ModalRoot activeModal={activeModal} onClose={() => setActiveModal(null)}>
       <InventoryModal id={EModalIds.inventory} />
+      <BossInventoryModal id={EModalIds.bossInventory} />
       <CloseGameModal id={EModalIds.close} />
     </ModalRoot>
   )
