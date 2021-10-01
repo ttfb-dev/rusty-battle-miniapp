@@ -9,7 +9,7 @@ import { RouterServiceProvider } from './services/router-service'
 import './init'
 
 ReactDOM.render(
-  <RouterServiceProvider initPanel={EPanels.START_GAME}>
+  <RouterServiceProvider initPanel={EPanels.FIGHT}>
     <App />
   </RouterServiceProvider>,
   document.getElementById('root')

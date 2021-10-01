@@ -1,0 +1,75 @@
+.PlayerStats {
+  width: 100%;
+  padding: 2px 16px;
+  box-sizing: border-box;
+}
+
+.PlayerStats .Counter__in {
+  padding-left: 2px;
+  padding-right: 2px;
+  white-space: nowrap;
+}
+
+.PlayerStats__container {
+  display: flex;
+  align-items: center;
+}
+
+.PlayerStats .PlayerStats__list {
+  display: flex;
+  width: 100%;
+  margin: 0;
+  padding: 0 8px;
+}
+
+.PlayerStats .PlayerStats__item {
+  width: 100%;
+  height: 4px;
+  margin-right: 4px;
+  border-radius: 20px;
+  list-style-type: none;
+  background-color: var(--image_border);
+}
+
+.PlayerStats .PlayerStats__item:last-child {
+  margin-right: 0;
+}
+
+.PlayerStats__dot {
+  min-width: 4px;
+  min-height: 4px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  margin-right: 4px;
+  list-style-type: none;
+  background-color: var(--image_border);
+}
+
+.PlayerStats__dot:last-child {
+  display: none;
+}
+
+.PlayerStats_energy {
+  color: var(--dynamic_purple);
+}
+
+.PlayerStats_health {
+  color: var(--dynamic_red);
+}
+
+.PlayerStats_energy .Counter {
+  background-color: var(--dynamic_purple);
+}
+
+.PlayerStats_health .Counter {
+  background-color: var(--dynamic_red);
+}
+
+.PlayerStats_energy .PlayerStats__item.PlayerStats__item_type_fill {
+  background-color: var(--dynamic_purple);
+}
+
+.PlayerStats_health .PlayerStats__item.PlayerStats__item_type_fill {
+  background-color: var(--dynamic_red);
+}
