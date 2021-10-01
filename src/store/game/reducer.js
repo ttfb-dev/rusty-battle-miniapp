@@ -1,4 +1,4 @@
-import { startGame, startFight } from './action';
+import { startGame, startFight, activateModule, deactivateModule } from './action';
 
 const initialState = {
   battle_id: null,
@@ -119,12 +119,10 @@ const reducer = (state = initialState, action) => {
         round: payload.round
       };
 
-      const my_robot = {...payload.robot};
-
       return {
         ...state,
         shuffle,
-        my_robot,
+        my_robot: {...payload.robot},
       }
 
     case startFight.type + '_success':
@@ -133,10 +131,58 @@ const reducer = (state = initialState, action) => {
         boss: {...payload.boss},
         status: payload.status
       }
+
+      case activateModule.type:
+        const my_robot_act = state.my_robot;
+        let activating_module_index;
+        
+        for (const index in my_robot_act.modules) {
+          const module = my_robot_act.modules[index];
+          if (module.id === payload.id) {
+            activating_module_index = index;
+          }
+        }
+  
+        if (!activating_module_index) {
+          return {
+            ...state
+          }
+        }
+  
+        my_robot_act.modules[activating_module_index].status = 'active';
+  
+        return {
+          ...state,
+          my_robot: {...my_robot_act},
+        }
       
-    default:
-      return state;
-  }
+        case deactivateModule.type:
+          const my_robot_deact = state.my_robot;
+          let deactivating_module_index;
+          
+          for (const index in my_robot_deact.modules) {
+            const module = my_robot_deact.modules[index];
+            if (module.id === payload.id) {
+              deactivating_module_index = index;
+            }
+          }
+    
+          if (!deactivating_module_index) {
+            return {
+              ...state
+            }
+          }
+    
+          my_robot_deact.modules[deactivating_module_index].status = 'ready';
+    
+          return {
+            ...state,
+            my_robot: {...my_robot_deact},
+          }
+        
+      default:
+        return state;
+    }
 };
 
 export { reducer };

@@ -2,17 +2,16 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 
 import {
-  Button,
   Div,
   PanelHeader,
   PanelHeaderClose,
-  CardGrid,
-  ContentCard,
   Spacing,
   FixedLayout,
   CellButton,
+  Button,
 } from '@vkontakte/vkui'
 
+import { InventoryFight } from 'components/InventoryFight'
 import { Panel } from 'components/Panel'
 import { Player } from 'components/Player'
 
@@ -90,7 +89,9 @@ export const FightPanel = ({ id }) => {
         </Div>
       </FixedLayout>
 
-      <Div style={{ marginTop: '272px' }}>Content</Div>
+      <Div style={{ marginTop: '272px' }}>
+        <InventoryFight />
+      </Div>
 
       <FixedLayout vertical="bottom">
         <CellButton>
