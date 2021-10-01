@@ -1,4 +1,5 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 
 import {
   Button,
@@ -35,30 +36,37 @@ const RESULT = {
 }
 
 export const RoundResultModal = ({ id }) => {
-  const { modalParams, setActiveModal } = useRouterService()
+  const { setActiveModal } = useRouterService()
 
-  const { level } = modalParams || {}
+  const log = useSelector((state) => state.game.log || [])
 
   return (
     <ModalPage
       id={id}
-      header={<ModalPageHeader separator>{level} раунд</ModalPageHeader>}
+      header={<ModalPageHeader separator>Раунд завершен</ModalPageHeader>}
       onClose={() => setActiveModal(null)}
     >
       <Separator />
 
-      {!Boolean(RESULT.user.history.length) &&
-        !Boolean(RESULT.boss.history.length) && (
-          <Placeholder>В этот ход нет эффектов</Placeholder>
-        )}
-
-      {Boolean(RESULT.user.history.length) && <RoundHistory {...RESULT.user} />}
-      {Boolean(RESULT.boss.history.length) && <RoundHistory {...RESULT.boss} />}
+      {Boolean(log.length) ? (
+        <RoundHistory
+          history={log.map((item) => ({
+            type: EStatsTypes.effects,
+            value: item,
+          }))}
+        />
+      ) : (
+        <Placeholder>В этот ход нет эффектов</Placeholder>
+      )}
 
       <footer className="RoundResultModal__footer">
         <Separator />
         <div style={{ padding: '12px 16px' }}>
-          <Button size="l" style={{ width: '100%' }}>
+          <Button
+            size="l"
+            style={{ width: '100%' }}
+            onClick={() => setActiveModal(null)}
+          >
             Продолжить
           </Button>
         </div>

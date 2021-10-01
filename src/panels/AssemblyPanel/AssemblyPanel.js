@@ -64,7 +64,7 @@ export const AssemblyPanel = ({ id }) => {
   const { setActiveModal } = useRouterService()
 
   const isLastRound = round === 10
-  //174
+
   return (
     <Panel id={id} header={<Header title="Сборка" />}>
       <div style={{ paddingTop: '174px' }} />

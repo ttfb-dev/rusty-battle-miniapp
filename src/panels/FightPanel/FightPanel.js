@@ -1,6 +1,8 @@
 import React, { useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
+import { Icon28CancelOutline } from '@vkontakte/icons'
+
 import {
   Div,
   PanelHeader,
@@ -9,6 +11,7 @@ import {
   FixedLayout,
   Button,
   Separator,
+  Spinner,
 } from '@vkontakte/vkui'
 
 import { InventoryFight } from 'components/InventoryFight'
@@ -16,6 +19,7 @@ import { Panel } from 'components/Panel'
 import { Player } from 'components/Player'
 
 import { EModalIds } from 'constants/modals'
+import { EGameStatus } from 'constants/game'
 import { useRouterService } from 'services/router-service'
 import { game } from 'store'
 
@@ -23,6 +27,8 @@ import './FightPanel.css'
 
 export const FightPanel = ({ id }) => {
   const { setActiveModal } = useRouterService()
+
+  const [isLoading, setIsLoading] = React.useState(false)
 
   const dispatch = useDispatch()
   const bossName = useSelector((store) => store.general.bossName)
@@ -33,6 +39,9 @@ export const FightPanel = ({ id }) => {
   const activeModules = useSelector((state) =>
     state.game.my_robot.modules.filter((module) => module.status === 'active')
   )
+
+  const log = useSelector((store) => store.game.log)
+  const status = useSelector((store) => store.game.status)
 
   const usedEnergy = useMemo(() => {
     let energy = 0
@@ -50,10 +59,33 @@ export const FightPanel = ({ id }) => {
 
   const fightStep = useMemo(() => {
     return () => {
-      const active_module_ids = activeModules.map((module) => module.id);
-      dispatch.sync(game.action.fightStep({battle_id, module_ids: active_module_ids}))
+      const active_module_ids = activeModules.map((module) => module.id)
+
+      setIsLoading(true)
+
+      dispatch.sync(
+        game.action.fightStep({ battle_id, module_ids: active_module_ids })
+      )
     }
   }, [activeModules, battle_id])
+
+  const isInitGame = React.useRef(false)
+
+  React.useEffect(() => {
+    if (!isInitGame.current) {
+      isInitGame.current = true
+
+      return
+    }
+
+    setIsLoading(false)
+
+    if (status === EGameStatus.fighting) {
+      setActiveModal(EModalIds.roundResult)
+    } else {
+      setActiveModal(EModalIds.gameResult)
+    }
+  }, [status, log])
 
   return (
     <Panel
@@ -63,7 +95,9 @@ export const FightPanel = ({ id }) => {
         <PanelHeader
           separator={false}
           left={
-            <PanelHeaderClose onClick={() => setActiveModal(EModalIds.close)} />
+            <PanelHeaderClose onClick={() => setActiveModal(EModalIds.close)}>
+              <Icon28CancelOutline />
+            </PanelHeaderClose>
           }
         >
           Битва
@@ -74,7 +108,11 @@ export const FightPanel = ({ id }) => {
         <Div className="FightPanel__header">
           <Div className="FightPanel__boss">
             <Player
-              effects="Нет эффектов"
+              effects={
+                boss.specifications?.effects?.length
+                  ? boss.specifications.effects.join(' · ')
+                  : 'Нет эффектов'
+              }
               user={{
                 image: `https://robohash.org/${bossName}.png`,
                 name: bossName,
@@ -89,7 +127,11 @@ export const FightPanel = ({ id }) => {
           <Spacing />
           <Div className="FightPanel__user">
             <Player
-              effects="Нет эффектов"
+              effects={
+                my_robot.specifications?.effects?.length
+                  ? my_robot.specifications.effects.join(' · ')
+                  : 'Нет эффектов'
+              }
               user={{
                 image: `https://robohash.org/${userId}.png`,
                 name: 'Мой робот',
@@ -122,8 +164,15 @@ export const FightPanel = ({ id }) => {
       >
         <Separator />
         <Div style={{ padding: '12px 16px' }}>
-          <Button onClick={() => {fightStep()}} size="l" style={{ width: '100%' }}>
-            Закончить ход
+          <Button
+            onClick={() => {
+              fightStep()
+            }}
+            size="l"
+            style={{ width: '100%' }}
+            disabled={isLoading}
+          >
+            {isLoading ? <Spinner size="small" /> : 'Закончить ход'}
           </Button>
         </Div>
       </FixedLayout>

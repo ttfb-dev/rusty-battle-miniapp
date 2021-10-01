@@ -1,4 +1,5 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 
 import {
   Avatar,
@@ -30,14 +31,21 @@ const LESION_DATA = {
 }
 
 export const GameResultModal = ({ id }) => {
-  const { modalParams, setActiveModal, pushPanel } = useRouterService()
+  const { setActiveModal, pushPanel } = useRouterService()
 
-  const { isVictory, user = {} } = modalParams || {}
-  const { header, description } = isVictory ? VICTORY_DATA : LESION_DATA
+  const winner = useSelector((store) => store.game.winner)
+  const userId = useSelector((store) => store.general.user_id)
+  const bossName = useSelector((store) => store.general.bossName)
+
+  const avatar =
+    winner === 'core'
+      ? `https://robohash.org/${bossName}.png`
+      : `https://robohash.org/${userId}.png`
+  const { header, description } = winner === 'core' ? LESION_DATA : VICTORY_DATA
 
   const handleClose = () => {
-    setActiveModal(null)
     pushPanel(EPanels.START_GAME)
+    setActiveModal(null)
   }
 
   return (
@@ -46,20 +54,7 @@ export const GameResultModal = ({ id }) => {
       header={<ModalHeader>Битва окончена</ModalHeader>}
       onClose={handleClose}
     >
-      <Placeholder
-        icon={
-          <Avatar size={72} src={`https://robohash.org/${user.name}.png`} />
-        }
-        header={header}
-        action={
-          <Button
-            mode="tertiary"
-            onClick={() => setActiveModal(EModalIds.gameHistory)}
-          >
-            Показать все ходы за партию
-          </Button>
-        }
-      >
+      <Placeholder icon={<Avatar size={72} src={avatar} />} header={header}>
         {description}
       </Placeholder>
 

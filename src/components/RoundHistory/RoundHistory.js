@@ -26,21 +26,15 @@ const Icons = {
   [EStatsTypes.energy]: (
     <Icon28Flash style={{ color: 'var(--dynamic_purple)' }} />
   ),
-  [EStatsTypes.effects]: <Icon28MagicWandOutline />,
+  [EStatsTypes.effects]: <Icon28Flash />,
 }
 
 export const RoundHistory = ({ name, history }) => {
   return (
-    <Group header={<Header>{name}</Header>} footer={'asd'}>
+    <Group header={name && <Header>{name}</Header>}>
       {history.length ? (
         history.map(({ type, value }) => (
-          <Cell
-            multiline
-            hoverMode={false}
-            activeMode={false}
-            before={Icons[type]}
-            description={Captions[type]}
-          >
+          <Cell multiline hoverMode={false} activeMode={false}>
             {type === EStatsTypes.effects ? value : `${value} ${Names[type]}`}
           </Cell>
         ))

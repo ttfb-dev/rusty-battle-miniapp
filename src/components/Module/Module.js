@@ -48,7 +48,7 @@ export const Module = ({
       {index !== filtred_stats.length - 1 ? <span> · </span> : ''}
     </span>
   ))
-  console.log(slot)
+
   return (
     <Banner
       key={id}

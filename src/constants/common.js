@@ -1,1 +1,1 @@
-export const GAME_NAME = 'Rusty Battles'
+export const GAME_NAME = 'Ржавые битвы'

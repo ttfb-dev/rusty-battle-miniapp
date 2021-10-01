@@ -1,4 +1,10 @@
-import { startGame, startFight, activateModule, deactivateModule, fightStep } from './action';
+import {
+  startGame,
+  startFight,
+  activateModule,
+  deactivateModule,
+  fightStep,
+} from './action'
 
 const initialState = {
   battle_id: null,
@@ -7,6 +13,8 @@ const initialState = {
     round: 0,
     modules: [],
   },
+  status: null,
+  log: [],
   my_robot: {
     specifications: {
       health: {
@@ -18,7 +26,7 @@ const initialState = {
         total: 0,
         base: 0,
         value: 0,
-      }
+      },
     },
     effects: [],
     modules: [],
@@ -34,12 +42,12 @@ const initialState = {
         total: 0,
         base: 0,
         value: 0,
-      }
+      },
     },
     effects: [],
     modules: [],
-  }
-};
+  },
+}
 
 /** status
  * in_progress - этап сбора модулей
@@ -99,10 +107,8 @@ const initialState = {
 }
 */
 
-
-
 const reducer = (state = initialState, action) => {
-  const { type, ...payload } = action;
+  const { type, ...payload } = action
 
   switch (type) {
     case startGame.type + '_success':
@@ -110,84 +116,89 @@ const reducer = (state = initialState, action) => {
         ...state,
         status: payload.status,
         battle_id: payload.battle_id,
-      };
+      }
 
     case 'game/shuffle_set':
       const shuffle = {
-        ...state.shuffle, 
-        modules: payload.modules, 
-        round: payload.round
-      };
+        ...state.shuffle,
+        modules: payload.modules,
+        round: payload.round,
+      }
 
       return {
         ...state,
         shuffle,
-        my_robot: {...payload.robot},
+        my_robot: { ...payload.robot },
       }
 
     case startFight.type + '_success':
       return {
         ...state,
-        boss: {...payload.boss},
-        status: payload.status
+        boss: { ...payload.boss },
+        status: payload.status,
       }
 
     case activateModule.type:
-      const my_robot_act = state.my_robot;
-      let activating_module_index;
-      
+      const my_robot_act = state.my_robot
+      let activating_module_index
+
       for (const index in my_robot_act.modules) {
-        const module = my_robot_act.modules[index];
+        const module = my_robot_act.modules[index]
         if (module.id === payload.id) {
-          activating_module_index = index;
+          activating_module_index = index
         }
       }
 
       if (!activating_module_index) {
         return {
-          ...state
+          ...state,
         }
       }
 
-      my_robot_act.modules[activating_module_index].status = 'active';
+      my_robot_act.modules[activating_module_index].status = 'active'
 
       return {
         ...state,
-        my_robot: {...my_robot_act},
+        my_robot: { ...my_robot_act },
       }
-    
+
     case deactivateModule.type:
-      const my_robot_deact = state.my_robot;
-      let deactivating_module_index;
-      
+      const my_robot_deact = state.my_robot
+      let deactivating_module_index
+
       for (const index in my_robot_deact.modules) {
-        const module = my_robot_deact.modules[index];
+        const module = my_robot_deact.modules[index]
         if (module.id === payload.id) {
-          deactivating_module_index = index;
+          deactivating_module_index = index
         }
       }
 
       if (!deactivating_module_index) {
         return {
-          ...state
+          ...state,
         }
       }
 
-      my_robot_deact.modules[deactivating_module_index].status = 'ready';
+      my_robot_deact.modules[deactivating_module_index].status = 'ready'
 
       return {
         ...state,
-        my_robot: {...my_robot_deact},
+        my_robot: { ...my_robot_deact },
       }
 
     case fightStep.type + '_success':
       return {
-        ...state
+        ...state,
+        log: [...payload.log],
+        status: payload.status,
+        winner: payload.winner,
+        boss: payload.boss ? { ...payload.boss } : state.boss,
+        my_robot: payload.robot ? { ...payload.robot } : state.my_robot,
       }
-      
-    default:
-      return state;
-  }
-};
 
-export { reducer };
+    default:
+      return state
+  }
+}
+
+export { reducer }
