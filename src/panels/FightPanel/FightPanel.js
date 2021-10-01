@@ -24,11 +24,14 @@ import { useRouterService } from 'services/router-service'
 import { game } from 'store'
 
 import './FightPanel.css'
+import { EPanels } from 'constants/panels'
 
 export const FightPanel = ({ id }) => {
-  const { setActiveModal } = useRouterService()
+  const { pushPanel, setActiveModal } = useRouterService()
 
   const [isLoading, setIsLoading] = React.useState(false)
+
+  const winner = useSelector((store) => store.game.winner)
 
   const dispatch = useDispatch()
   const bossName = useSelector((store) => store.general.bossName)
@@ -166,13 +169,19 @@ export const FightPanel = ({ id }) => {
         <Div style={{ padding: '12px 16px' }}>
           <Button
             onClick={() => {
-              fightStep()
+              !winner ? fightStep() : pushPanel(EPanels.START_GAME)
             }}
             size="l"
             style={{ width: '100%' }}
             disabled={isLoading}
           >
-            {isLoading ? <Spinner size="small" /> : 'Закончить ход'}
+            {winner ? (
+              'Конец игры'
+            ) : isLoading ? (
+              <Spinner size="small" />
+            ) : (
+              'Закончить ход'
+            )}
           </Button>
         </Div>
       </FixedLayout>
