@@ -15,14 +15,17 @@ import {
 
 import { useRouterService } from 'services/router-service'
 
-export const ModalHeader = ({ children }) => {
+export const ModalHeader = ({ children, onClose }) => {
   const platform = usePlatform()
   const { viewWidth } = useAdaptivity()
   const { setActiveModal } = useRouterService()
 
   const isMobile = viewWidth <= ViewWidth.MOBILE
 
-  const handleClose = () => setActiveModal(null)
+  const handleClose = () => {
+    setActiveModal(null)
+    onClose && onClose()
+  }
 
   return (
     <React.Fragment>

@@ -9,6 +9,7 @@ import { BossInventoryModal } from 'components/BossInventoryModal'
 import { CloseGameModal } from 'components/CloseGameModal'
 import { RoundResultModal } from 'components/RoundResultModal'
 import { GameResultModal } from 'components/GameResultModal'
+import { GameHistoryModal } from 'components/GameHistoryModal'
 import { EModalIds } from 'constants/modals'
 
 export const Modals = () => {
@@ -21,6 +22,7 @@ export const Modals = () => {
       <RoundResultModal id={EModalIds.roundResult} />
       <CloseGameModal id={EModalIds.close} />
       <GameResultModal id={EModalIds.gameResult} />
+      <GameHistoryModal id={EModalIds.gameHistory} />
     </ModalRoot>
   )
 }

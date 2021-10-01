@@ -31,6 +31,7 @@ export const Module = ({
   element,
   stats = [],
   actions,
+  isAvatar,
 }) => {
   const header = (
     <React.Fragment>
@@ -53,7 +54,7 @@ export const Module = ({
       key={id}
       before={
         <Avatar
-          mode="image"
+          mode={isAvatar ? 'default' : 'image'}
           src={image || STATIC_IMAGES[slot] || trashPng}
         ></Avatar>
       }

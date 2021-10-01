@@ -14,7 +14,6 @@ import { Panel } from 'components/Panel'
 import { GAME_NAME } from 'constants/common'
 import { useRouterService } from 'services/router-service'
 import { EPanels } from 'constants/panels'
-import { EModalIds } from 'constants/modals'
 
 export const StartGamePanel = ({ id }) => {
   const dispatch = useDispatch()
@@ -51,17 +50,6 @@ export const StartGamePanel = ({ id }) => {
           onClick={() => pushPanel(EPanels.HELP)}
         >
           Правила
-        </Button>
-
-        <Button
-          onClick={() =>
-            setActiveModal(EModalIds.gameResult, {
-              isVictory: false,
-              user: { name: 'asd' },
-            })
-          }
-        >
-          test
         </Button>
       </div>
     </div>

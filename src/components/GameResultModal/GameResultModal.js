@@ -10,6 +10,7 @@ import {
 import { ModalHeader } from 'components/ModalHeader'
 import { useRouterService } from 'services/router-service'
 import { EPanels } from 'constants/panels'
+import { EModalIds } from 'constants/modals'
 
 const VICTORY_DATA = {
   header: 'Ты победил!',
@@ -50,7 +51,14 @@ export const GameResultModal = ({ id }) => {
           <Avatar size={72} src={`https://robohash.org/${user.name}.png`} />
         }
         header={header}
-        action={<Button mode="tertiary">Показать все ходы за партию</Button>}
+        action={
+          <Button
+            mode="tertiary"
+            onClick={() => setActiveModal(EModalIds.gameHistory)}
+          >
+            Показать все ходы за партию
+          </Button>
+        }
       >
         {description}
       </Placeholder>

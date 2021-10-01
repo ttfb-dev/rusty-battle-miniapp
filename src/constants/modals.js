@@ -4,4 +4,5 @@ export const EModalIds = {
   roundResult: 'roundResult',
   close: 'close',
   gameResult: 'gameResult',
+  gameHistory: 'gameHistory',
 }
