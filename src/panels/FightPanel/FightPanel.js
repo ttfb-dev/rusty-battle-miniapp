@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { useSelector } from 'react-redux'
 
 import {
@@ -17,6 +17,7 @@ import { Player } from 'components/Player'
 
 import { EModalIds } from 'constants/modals'
 import { useRouterService } from 'services/router-service'
+import { general, game } from 'store'
 
 import './FightPanel.css'
 
@@ -24,6 +25,24 @@ export const FightPanel = ({ id }) => {
   const { setActiveModal } = useRouterService()
 
   const bossName = useSelector((store) => store.general.bossName)
+  const userId = useSelector((store) => store.general.user_id)
+  const my_robot = useSelector((store) => store.game.my_robot)
+  const boss = useSelector((store) => store.game.boss)
+  const activeModules = useSelector((state) => state.game.my_robot.modules.filter((module) => module.status === 'active'));
+
+  const usedEnergy = useMemo(() => {
+    let energy = 0;
+    activeModules.forEach((module) => {
+      if (module.status === 'active') {
+        energy += module.energy
+      }
+    })
+    return energy;
+  }, [activeModules])
+
+  const remainingEnergy = useMemo(() => {
+    return my_robot.specifications.energy.value - usedEnergy;
+  }, [usedEnergy, my_robot])
 
   return (
     <Panel
@@ -46,20 +65,12 @@ export const FightPanel = ({ id }) => {
             <Player
               effects="Нет эффектов"
               user={{
-                image: `https://robohash.org/${Math.random()}.png`,
-                name: 'Переработанный Властелин',
+                image: `https://robohash.org/${bossName}.png`,
+                name: bossName,
               }}
               specifications={{
-                health: {
-                  total: 7,
-                  base: 5,
-                  value: 7,
-                },
-                energy: {
-                  total: 14,
-                  base: 9,
-                  value: 14,
-                },
+                health: { ...boss.specifications.health},
+                energy: { ...boss.specifications.energy},
               }}
               onClick={() => null}
             />
@@ -69,20 +80,12 @@ export const FightPanel = ({ id }) => {
             <Player
               effects="Нет эффектов"
               user={{
-                image: `https://robohash.org/${Math.random()}.png`,
-                name: 'S. Pivovarov',
+                image: `https://robohash.org/${userId}.png`,
+                name: 'Мой робот',
               }}
               specifications={{
-                health: {
-                  total: 10,
-                  base: 7,
-                  value: 7,
-                },
-                energy: {
-                  total: 14,
-                  base: 10,
-                  value: 12,
-                },
+                health: { ...my_robot.specifications.health},
+                energy: { ...my_robot.specifications.energy, value: remainingEnergy},
               }}
             />
           </Div>
@@ -90,7 +93,7 @@ export const FightPanel = ({ id }) => {
       </FixedLayout>
 
       <Div style={{ marginTop: '272px' }}>
-        <InventoryFight />
+        <InventoryFight remainingEnergy={remainingEnergy} />
       </Div>
 
       <FixedLayout vertical="bottom">
