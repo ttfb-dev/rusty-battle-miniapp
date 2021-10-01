@@ -7,8 +7,9 @@ import {
   PanelHeaderClose,
   Spacing,
   FixedLayout,
-  CellButton,
   Button,
+  Cell,
+  Separator,
 } from '@vkontakte/vkui'
 
 import { InventoryFight } from 'components/InventoryFight'
@@ -28,20 +29,22 @@ export const FightPanel = ({ id }) => {
   const userId = useSelector((store) => store.general.user_id)
   const my_robot = useSelector((store) => store.game.my_robot)
   const boss = useSelector((store) => store.game.boss)
-  const activeModules = useSelector((state) => state.game.my_robot.modules.filter((module) => module.status === 'active'));
+  const activeModules = useSelector((state) =>
+    state.game.my_robot.modules.filter((module) => module.status === 'active')
+  )
 
   const usedEnergy = useMemo(() => {
-    let energy = 0;
+    let energy = 0
     activeModules.forEach((module) => {
       if (module.status === 'active') {
         energy += module.energy
       }
     })
-    return energy;
+    return energy
   }, [activeModules])
 
   const remainingEnergy = useMemo(() => {
-    return my_robot.specifications.energy.value - usedEnergy;
+    return my_robot.specifications.energy.value - usedEnergy
   }, [usedEnergy, my_robot])
 
   return (
@@ -69,8 +72,8 @@ export const FightPanel = ({ id }) => {
                 name: bossName,
               }}
               specifications={{
-                health: { ...boss.specifications.health},
-                energy: { ...boss.specifications.energy},
+                health: { ...boss.specifications.health },
+                energy: { ...boss.specifications.energy },
               }}
               onClick={() => null}
             />
@@ -84,22 +87,37 @@ export const FightPanel = ({ id }) => {
                 name: 'Мой робот',
               }}
               specifications={{
-                health: { ...my_robot.specifications.health},
-                energy: { ...my_robot.specifications.energy, value: remainingEnergy},
+                health: { ...my_robot.specifications.health },
+                energy: {
+                  ...my_robot.specifications.energy,
+                  value: remainingEnergy,
+                },
               }}
             />
           </Div>
         </Div>
       </FixedLayout>
 
-      <Div style={{ marginTop: '272px' }}>
+      <Div
+        style={{
+          padding: '0',
+          marginTop: '272px',
+          marginBottom: '69px',
+        }}
+      >
         <InventoryFight remainingEnergy={remainingEnergy} />
       </Div>
 
-      <FixedLayout vertical="bottom">
-        <CellButton>
-          <Button>Закончить ход</Button>
-        </CellButton>
+      <FixedLayout
+        vertical="bottom"
+        style={{ backgroundColor: 'var(--background_content)' }}
+      >
+        <Separator />
+        <Div style={{ padding: '12px 16px' }}>
+          <Button size="l" style={{ width: '100%' }}>
+            Закончить ход
+          </Button>
+        </Div>
       </FixedLayout>
     </Panel>
   )
