@@ -46,6 +46,8 @@ export const Inventory = ({ modules = [] }) => {
               <Module
                 key={id}
                 name={title}
+                slot={slot}
+                image={image}
                 description={description}
                 element={ESlotsTypes[slot]}
                 stats={[

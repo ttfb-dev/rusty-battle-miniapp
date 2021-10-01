@@ -109,6 +109,8 @@ export const AssemblyPanel = ({ id }) => {
               name={module.title}
               element={ESlotsTypes[module.slots.join(', ')]}
               description={module.description}
+              slot={module.slots[0]}
+              image={module.image}
               stats={[
                 { type: EStatsTypes.energy, value: module.energy },
                 { type: EStatsTypes.damage, value: module.damage },

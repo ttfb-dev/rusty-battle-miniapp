@@ -6,7 +6,6 @@ import {
   ModalPageHeader,
   Separator,
   Placeholder,
-  Footer,
 } from '@vkontakte/vkui'
 
 import { useRouterService } from 'services/router-service'
@@ -43,7 +42,6 @@ export const RoundResultModal = ({ id }) => {
   return (
     <ModalPage
       id={id}
-      dynamicContentHeight
       header={<ModalPageHeader separator>{level} раунд</ModalPageHeader>}
       onClose={() => setActiveModal(null)}
     >
