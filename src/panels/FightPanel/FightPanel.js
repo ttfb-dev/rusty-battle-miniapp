@@ -17,7 +17,6 @@ import { Player } from 'components/Player'
 
 import { EModalIds } from 'constants/modals'
 import { useRouterService } from 'services/router-service'
-import { general, game } from 'store'
 
 import './FightPanel.css'
 
