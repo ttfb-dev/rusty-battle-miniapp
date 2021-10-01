@@ -7,6 +7,7 @@ import { useRouterService } from 'services/router-service'
 import { InventoryModal } from 'components/InventoryModal'
 import { BossInventoryModal } from 'components/BossInventoryModal'
 import { CloseGameModal } from 'components/CloseGameModal'
+import { RoundResultModal } from 'components/RoundResultModal'
 import { EModalIds } from 'constants/modals'
 
 export const Modals = () => {
@@ -16,6 +17,7 @@ export const Modals = () => {
     <ModalRoot activeModal={activeModal} onClose={() => setActiveModal(null)}>
       <InventoryModal id={EModalIds.inventory} />
       <BossInventoryModal id={EModalIds.bossInventory} />
+      <RoundResultModal id={EModalIds.roundResult} />
       <CloseGameModal id={EModalIds.close} />
     </ModalRoot>
   )
