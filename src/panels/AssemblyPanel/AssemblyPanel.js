@@ -7,6 +7,7 @@ import {
   Div,
   Separator,
   Spacing,
+  FixedLayout,
 } from '@vkontakte/vkui'
 
 import { useRouterService } from 'services/router-service'
@@ -63,38 +64,45 @@ export const AssemblyPanel = ({ id }) => {
   const { setActiveModal } = useRouterService()
 
   const isLastRound = round === 10
-
+  //174
   return (
     <Panel id={id} header={<Header title="Сборка" />}>
-      <StatusBar activeIndex={round - 1} />
+      <div style={{ paddingTop: '174px' }} />
 
-      <div className="AssemblyPanel__descriptionContainer">
-        <Title level="2" weight="semibold">
-          Собери робота
-        </Title>
-        <Caption className="AssemblyPanel__description" level="1">
-          Выбери модули из&nbsp;предложенных для установки
-          их&nbsp;на&nbsp;робота и&nbsp;начала боя
-        </Caption>
-      </div>
+      <FixedLayout
+        vertical="top"
+        style={{ backgroundColor: 'var(--background_content)' }}
+      >
+        <StatusBar activeIndex={round - 1} />
 
-      <StatsBar
-        health={{
-          value: robot.specifications.health.total,
-          aditionValue:
-            '+' +
-            (robot.specifications.health.total -
-              robot.specifications.health.base),
-        }}
-        energy={{
-          value: robot.specifications.energy.total,
-          aditionValue:
-            '+' +
-            (robot.specifications.energy.total -
-              robot.specifications.energy.base),
-        }}
-        onClick={() => setActiveModal('inventory')}
-      />
+        <div className="AssemblyPanel__descriptionContainer">
+          <Title level="2" weight="semibold">
+            Собери робота
+          </Title>
+          <Caption className="AssemblyPanel__description" level="1">
+            Выбери модули из&nbsp;предложенных для установки
+            их&nbsp;на&nbsp;робота и&nbsp;начала боя
+          </Caption>
+        </div>
+
+        <StatsBar
+          health={{
+            value: robot.specifications.health.total,
+            aditionValue:
+              '+' +
+              (robot.specifications.health.total -
+                robot.specifications.health.base),
+          }}
+          energy={{
+            value: robot.specifications.energy.total,
+            aditionValue:
+              '+' +
+              (robot.specifications.energy.total -
+                robot.specifications.energy.base),
+          }}
+          onClick={() => setActiveModal('inventory')}
+        />
+      </FixedLayout>
 
       {modules &&
         modules.map((module, index) => {
@@ -150,7 +158,14 @@ export const AssemblyPanel = ({ id }) => {
             />
           )
         })}
-      <Div>
+
+      <FixedLayout
+        vertical="bottom"
+        style={{
+          padding: '14px 16px',
+          backgroundColor: 'var(--background_content)',
+        }}
+      >
         {!isLastRound && round >= 2 && robot.modules.length >= 1 && (
           <>
             <Button
@@ -178,7 +193,9 @@ export const AssemblyPanel = ({ id }) => {
         >
           {isLastRound ? 'Начать бой' : 'Пропустить'}
         </Button>
-      </Div>
+      </FixedLayout>
+
+      <div style={{ paddingTop: '125px' }} />
     </Panel>
   )
 }
