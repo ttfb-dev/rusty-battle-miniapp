@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import {
   Div,
@@ -8,7 +8,6 @@ import {
   Spacing,
   FixedLayout,
   Button,
-  Cell,
   Separator,
 } from '@vkontakte/vkui'
 
@@ -18,16 +17,19 @@ import { Player } from 'components/Player'
 
 import { EModalIds } from 'constants/modals'
 import { useRouterService } from 'services/router-service'
+import { game } from 'store'
 
 import './FightPanel.css'
 
 export const FightPanel = ({ id }) => {
   const { setActiveModal } = useRouterService()
 
+  const dispatch = useDispatch()
   const bossName = useSelector((store) => store.general.bossName)
   const userId = useSelector((store) => store.general.user_id)
   const my_robot = useSelector((store) => store.game.my_robot)
   const boss = useSelector((store) => store.game.boss)
+  const battle_id = useSelector((store) => store.game.battle_id)
   const activeModules = useSelector((state) =>
     state.game.my_robot.modules.filter((module) => module.status === 'active')
   )
@@ -45,6 +47,13 @@ export const FightPanel = ({ id }) => {
   const remainingEnergy = useMemo(() => {
     return my_robot.specifications.energy.value - usedEnergy
   }, [usedEnergy, my_robot])
+
+  const fightStep = useMemo(() => {
+    return () => {
+      const active_module_ids = activeModules.map((module) => module.id);
+      dispatch.sync(game.action.fightStep({battle_id, module_ids: active_module_ids}))
+    }
+  }, [activeModules, battle_id])
 
   return (
     <Panel
@@ -113,7 +122,7 @@ export const FightPanel = ({ id }) => {
       >
         <Separator />
         <Div style={{ padding: '12px 16px' }}>
-          <Button size="l" style={{ width: '100%' }}>
+          <Button onClick={() => {fightStep()}} size="l" style={{ width: '100%' }}>
             Закончить ход
           </Button>
         </Div>

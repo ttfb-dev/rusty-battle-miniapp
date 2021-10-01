@@ -31,7 +31,9 @@ export const InventoryFight = ({ id, remainingEnergy }) => {
         installed_modules.map((module, index) => {
           let button;
 
-          if (module.status === 'active') {
+          if (module.energy === 0) {
+            button = <Button before={<Icon16Done />} disabled mode='secondary'>Выбран</Button>
+          } else if (module.status === 'active') {
             button = <Button before={<Icon16Done />} mode='secondary' onClick={() => {deactivateModule(module.id)}}>Выбран</Button>
           } else if ((module.status === '' || module.status === 'ready') && remainingEnergy >= module.energy) {
             button = <Button mode='primary' onClick={() => {activateModule(module.id)}}>Использовать</Button>
