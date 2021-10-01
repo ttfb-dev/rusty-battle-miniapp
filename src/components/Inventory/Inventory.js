@@ -46,6 +46,8 @@ export const Inventory = ({ modules = [] }) => {
               <Module
                 key={id}
                 name={title}
+                slot={slot}
+                image={image}
                 description={description}
                 element={ESlotsTypes[slot]}
                 stats={[
@@ -56,7 +58,7 @@ export const Inventory = ({ modules = [] }) => {
             )
           )
         ) : (
-          <Placeholder>Модули не добавлены</Placeholder>
+          <Placeholder>Оружие не добавлено</Placeholder>
         )}
       </Group>
     )

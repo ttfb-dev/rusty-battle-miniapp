@@ -17,7 +17,7 @@ import { EPanels } from 'constants/panels'
 
 export const StartGamePanel = ({ id }) => {
   const dispatch = useDispatch()
-  const { pushPanel } = useRouterService()
+  const { pushPanel, setActiveModal } = useRouterService()
 
   const [isLoading, setIsLoading] = React.useState(false)
 
@@ -29,7 +29,7 @@ export const StartGamePanel = ({ id }) => {
     pushPanel(EPanels.ASSEMBLY)
   }
 
-  const bossName = useSelector((store) => store.general.bossName);
+  const bossName = useSelector((store) => store.general.bossName)
 
   const actions = (
     <div>
@@ -69,7 +69,10 @@ export const StartGamePanel = ({ id }) => {
         }
         action={actions}
       >
-        Собери робота и сразись<br />с повелителем свалки по имени<br />{bossName}
+        Собери робота и сразись
+        <br />с повелителем свалки по имени
+        <br />
+        {bossName}
       </Placeholder>
     </Panel>
   )

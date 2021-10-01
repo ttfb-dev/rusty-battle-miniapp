@@ -3,8 +3,21 @@ import React from 'react'
 import { RouterServiceContext } from './RouterServiceContext'
 
 export const useRouterService = () => {
-  const { activePanel, popPanel, pushPanel, activeModal, setActiveModal } =
-    React.useContext(RouterServiceContext)
+  const {
+    activePanel,
+    popPanel,
+    pushPanel,
+    modalParams,
+    activeModal,
+    setActiveModal,
+  } = React.useContext(RouterServiceContext)
 
-  return { activePanel, popPanel, pushPanel, activeModal, setActiveModal }
+  return {
+    activePanel,
+    popPanel,
+    pushPanel,
+    modalParams,
+    activeModal,
+    setActiveModal,
+  }
 }

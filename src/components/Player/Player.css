@@ -29,6 +29,7 @@
   border-radius: 20px;
   list-style-type: none;
   background-color: var(--image_border);
+  transition: background-color 200ms ease-in-out;
 }
 
 .PlayerStats .PlayerStats__item:last-child {

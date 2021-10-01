@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Button, Div } from '@vkontakte/vkui'
-import { Icon16Done } from '@vkontakte/icons';
+import { Icon16Done } from '@vkontakte/icons'
 
 import { Module } from 'components/Module'
 
@@ -19,18 +19,17 @@ export const InventoryFight = ({ id, remainingEnergy }) => {
   const dispatch = useDispatch()
 
   const activateModule = (id) => {
-    dispatch(game.action.activateModule({id}))
+    dispatch(game.action.activateModule({ id }))
   }
   const deactivateModule = (id) => {
-    dispatch(game.action.deactivateModule({id}))
+    dispatch(game.action.deactivateModule({ id }))
   }
 
   return (
     <>
       {installed_modules &&
         installed_modules.map((module, index) => {
-          let button;
-
+          let button
           if (module.energy === 0) {
             button = <Button before={<Icon16Done />} disabled mode='secondary'>Выбран</Button>
           } else if (module.status === 'active') {
@@ -41,23 +40,23 @@ export const InventoryFight = ({ id, remainingEnergy }) => {
             button = <Button mode='primary' disabled onClick={() => {activateModule(module.id)}}>Использовать</Button>
           }
 
-          return (<Module
-            id={index + module.id}
-            key={index + module.id}
-            name={module.title}
-            element={ESlotsTypes[module.slot]}
-            description={module.description}
-            stats={[
-              { type: EStatsTypes.energy, value: module.energy },
-              { type: EStatsTypes.damage, value: module.damage },
-            ]}
-            actions={
-              <React.Fragment>
-                {button}
-              </React.Fragment>
-            }
-          />)
-      })}
+          return (
+            <Module
+              id={index + module.id}
+              key={index + module.id}
+              name={module.title}
+              element={ESlotsTypes[module.slot]}
+              description={module.description}
+              slot={module.slot}
+              image={module.image}
+              stats={[
+                { type: EStatsTypes.energy, value: module.energy },
+                { type: EStatsTypes.damage, value: module.damage },
+              ]}
+              actions={<React.Fragment>{button}</React.Fragment>}
+            />
+          )
+        })}
     </>
   )
 }

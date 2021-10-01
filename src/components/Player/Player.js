@@ -1,14 +1,11 @@
 import React from 'react'
 
-import { SimpleCell, Avatar, Counter } from '@vkontakte/vkui'
-import {
-  Icon24User,
-  Icon24Chevron,
-  Icon16Like,
-  Icon16Flash,
-} from '@vkontakte/icons'
+import { Counter } from '@vkontakte/vkui'
+import { Icon16Like, Icon16Flash } from '@vkontakte/icons'
 
 import { EStatsTypes } from 'constants/stats'
+
+import { Profile } from 'components/Profile'
 
 import './Player.css'
 
@@ -50,20 +47,7 @@ export const Player = ({ effects, user, specifications, onClick }) => {
 
   return (
     <React.Fragment>
-      <SimpleCell
-        before={<Avatar size={48} src={user.image} />}
-        after={
-          onClick && (
-            <Icon24Chevron style={{ color: 'var(--text_secondary)' }} />
-          )
-        }
-        description={effects}
-        hoverMode={false}
-        activeMode={false}
-        onClick={onClick}
-      >
-        {user.name}
-      </SimpleCell>
+      <Profile user={user} effects={effects} onClick={onClick} />
 
       <PlayerStats type={EStatsTypes.health} options={health} />
       <PlayerStats type={EStatsTypes.energy} options={energy} />

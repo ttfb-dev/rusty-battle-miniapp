@@ -2,6 +2,7 @@ export const EStatsTypes = {
   health: 'health',
   energy: 'energy',
   damage: 'damage',
+  effects: 'effects',
 }
 
 export const EStatsNames = {

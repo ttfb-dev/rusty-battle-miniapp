@@ -1,0 +1,7 @@
+.RoundResultModal__footer {
+  background-color: var(--background_content);
+}
+
+.RoundResultModal__footer .Separator__in {
+  margin: 0 !important;
+}
