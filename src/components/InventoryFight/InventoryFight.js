@@ -42,8 +42,8 @@ export const InventoryFight = ({ id, remainingEnergy }) => {
 
           return (
             <Module
-              id={index + module.id}
-              key={index + module.id}
+              id={index + module.id + module.slot}
+              key={index + module.id + module.slot}
               name={module.title}
               element={ESlotsTypes[module.slot]}
               description={module.description}

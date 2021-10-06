@@ -9,57 +9,6 @@ import { EPanels } from 'constants/panels'
 import { EStatsTypes } from 'constants/stats'
 import { useRouterService } from 'services/router-service'
 
-const MOCK = [
-  [
-    {
-      title: 'Лазер',
-      image: `https://robohash.org/1.png`,
-      description: 'Наносит 1 урона',
-      damage: 0,
-      energy: 0,
-    },
-    {
-      title: 'Ракетный кулак',
-      image: `https://robohash.org/2.png`,
-      description: 'Стан врага. Перезарядка 3 хода',
-      damage: 4,
-      energy: -4,
-    },
-  ],
-  [
-    {
-      title: 'Лазер',
-      image: `https://robohash.org/1.png`,
-      description: 'Наносит 1 урона',
-      damage: 0,
-      energy: 0,
-    },
-    {
-      title: 'Ракетный кулак',
-      image: `https://robohash.org/2.png`,
-      description: 'Стан врага. Перезарядка 3 хода',
-      damage: 4,
-      energy: -4,
-    },
-  ],
-  [
-    {
-      title: 'Лазер',
-      image: `https://robohash.org/1.png`,
-      description: 'Наносит 1 урона',
-      damage: 0,
-      energy: 0,
-    },
-    {
-      title: 'Ракетный кулак',
-      image: `https://robohash.org/2.png`,
-      description: 'Стан врага. Перезарядка 3 хода',
-      damage: 4,
-      energy: -4,
-    },
-  ],
-]
-
 export const GameHistoryModal = ({ id }) => {
   const { setActiveModal, pushPanel } = useRouterService()
 
