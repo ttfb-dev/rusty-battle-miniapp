@@ -40,7 +40,7 @@ export const FightPanel = ({ id }) => {
   const boss = useSelector((store) => store.game.boss)
   const battle_id = useSelector((store) => store.game.battle_id)
   const activeModules = useSelector((state) =>
-    state.game.my_robot.modules.filter((module) => module.status === 'active')
+    state.game.my_robot.modules.filter((module) => module.status === 'selected')
   )
 
   const log = useSelector((store) => store.game.log)
@@ -49,15 +49,15 @@ export const FightPanel = ({ id }) => {
   const usedEnergy = useMemo(() => {
     let energy = 0
     activeModules.forEach((module) => {
-      if (module.status === 'active') {
-        energy += module.energy
+      if (module.status === 'selected') {
+        energy += module.energy_coast
       }
     })
     return energy
   }, [activeModules])
 
   const remainingEnergy = useMemo(() => {
-    return my_robot.specifications.energy.value - usedEnergy
+    return my_robot.energy - usedEnergy
   }, [usedEnergy, my_robot])
 
   const fightStep = useMemo(() => {
@@ -67,7 +67,7 @@ export const FightPanel = ({ id }) => {
       setIsLoading(true)
 
       dispatch.sync(
-        game.action.fightStep({ battle_id, module_ids: active_module_ids })
+        game.action.fightStep({ battle_id, modules_ids: active_module_ids })
       )
     }
   }, [activeModules, battle_id])
@@ -83,10 +83,13 @@ export const FightPanel = ({ id }) => {
 
     setIsLoading(false)
 
-    if (status === EGameStatus.fighting) {
-      setActiveModal(EModalIds.roundResult)
-    } else {
-      setActiveModal(EModalIds.gameResult)
+    switch(status) {
+      case EGameStatus.fighting:
+        setActiveModal(EModalIds.roundResult)
+        break;
+      case EGameStatus.finished:
+        setActiveModal(EModalIds.gameResult)
+        break;
     }
   }, [status, log])
 
@@ -111,18 +114,17 @@ export const FightPanel = ({ id }) => {
         <Div className="FightPanel__header">
           <Div className="FightPanel__boss">
             <Player
-              effects={
-                boss.specifications?.effects?.length
-                  ? boss.specifications.effects.join(' · ')
-                  : 'Нет эффектов'
-              }
               user={{
                 image: `https://robohash.org/${bossName}.png`,
                 name: bossName,
               }}
               specifications={{
-                health: { ...boss.specifications.health },
-                energy: { ...boss.specifications.energy },
+                health: boss.health,
+                health_base: boss.health_base,
+                health_max: boss.health_max,
+                energy: boss.energy,
+                energy_base: boss.energy_base,
+                energy_max: boss.energy_max,
               }}
               onClick={() => setActiveModal(EModalIds.bossInventory)}
             />
@@ -130,21 +132,17 @@ export const FightPanel = ({ id }) => {
           <Spacing />
           <Div className="FightPanel__user">
             <Player
-              effects={
-                my_robot.specifications?.effects?.length
-                  ? my_robot.specifications.effects.join(' · ')
-                  : 'Нет эффектов'
-              }
               user={{
                 image: `https://robohash.org/${userId}.png`,
                 name: 'Мой робот',
               }}
               specifications={{
-                health: { ...my_robot.specifications.health },
-                energy: {
-                  ...my_robot.specifications.energy,
-                  value: remainingEnergy,
-                },
+                health: my_robot.health,
+                health_base: my_robot.health_base,
+                health_max: my_robot.health_max,
+                energy: remainingEnergy,
+                energy_base: my_robot.energy_base,
+                energy_max: my_robot.energy_max,
               }}
             />
           </Div>

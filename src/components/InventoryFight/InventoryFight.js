@@ -30,13 +30,13 @@ export const InventoryFight = ({ id, remainingEnergy }) => {
       {installed_modules &&
         installed_modules.map((module, index) => {
           let button
-          if (module.energy === 0) {
+          if (module.energy_coast === 0) {
             button = <Button before={<Icon16Done />} disabled mode='secondary'>Выбран</Button>
-          } else if (module.status === 'active') {
+          } else if (module.status === 'selected') {
             button = <Button before={<Icon16Done />} mode='secondary' onClick={() => {deactivateModule(module.id)}}>Выбран</Button>
-          } else if ((module.status === '' || module.status === 'ready') && remainingEnergy >= module.energy) {
+          } else if ((module.status === 'active' || module.status === 'ready') && remainingEnergy >= module.energy_coast) {
             button = <Button mode='primary' onClick={() => {activateModule(module.id)}}>Использовать</Button>
-          } else if (module.status === 'disabled' || remainingEnergy < module.energy) {
+          } else if (module.status === 'disabled' || remainingEnergy < module.energy_coast) {
             button = <Button mode='primary' disabled onClick={() => {activateModule(module.id)}}>Использовать</Button>
           }
 
@@ -44,13 +44,13 @@ export const InventoryFight = ({ id, remainingEnergy }) => {
             <Module
               id={index + module.id + module.slot}
               key={index + module.id + module.slot}
-              name={module.title}
+              name={module.name}
               element={ESlotsTypes[module.slot]}
               description={module.description}
               slot={module.slot}
               image={module.image}
               stats={[
-                { type: EStatsTypes.energy, value: module.energy },
+                { type: EStatsTypes.energy, value: module.energy_coast },
                 { type: EStatsTypes.damage, value: module.damage },
               ]}
               actions={<React.Fragment>{button}</React.Fragment>}

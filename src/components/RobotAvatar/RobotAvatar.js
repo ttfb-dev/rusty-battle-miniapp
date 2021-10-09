@@ -4,7 +4,7 @@ export const RobotAvatar = ({ slug, ...props }) => {
   return (
     <img
       {...props}
-      src={`https://robohash.org/${slug}`}
+      src={`https://robohash.org/${slug}.png`}
     />
   )
 }

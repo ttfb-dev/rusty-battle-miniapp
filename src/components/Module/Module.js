@@ -19,7 +19,7 @@ const STATIC_IMAGES = {
   [ESlotsIds.core]: bodyPng,
   [ESlotsIds.hand_l]: lHandPng,
   [ESlotsIds.hand_r]: rHandPng,
-  [ESlotsIds.feet]: legsPng,
+  [ESlotsIds.foot]: legsPng,
 }
 
 export const Module = ({

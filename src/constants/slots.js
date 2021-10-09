@@ -2,7 +2,7 @@ export const ESlotsSections = {
   hands: 'hands',
   head: 'head',
   core: 'core',
-  feet: 'feet',
+  foot: 'foot',
 }
 
 export const ESlotsIds = {
@@ -10,7 +10,7 @@ export const ESlotsIds = {
   hand_r: 'hand_r',
   head: 'head',
   core: 'core',
-  feet: 'feet',
+  foot: 'foot',
 }
 
 export const ESlotsTypes = {
@@ -20,7 +20,7 @@ export const ESlotsTypes = {
   hand_r: 'Правая рука',
   head: 'Голова',
   core: 'Ядро',
-  feet: 'Ноги',
+  foot: 'Ноги',
 }
 
 export const ESlotsTypesIn = {
@@ -30,5 +30,5 @@ export const ESlotsTypesIn = {
   hand_r: 'в правую руку',
   head: 'на голову',
   core: 'в ядро',
-  feet: 'на ноги',
+  foot: 'на ноги',
 }

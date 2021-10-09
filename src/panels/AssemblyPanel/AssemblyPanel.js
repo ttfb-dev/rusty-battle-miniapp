@@ -1,10 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import {
   Title,
   Caption,
   Button,
-  Div,
   Separator,
   Spacing,
   FixedLayout,
@@ -20,7 +19,6 @@ import { Module } from 'components/Module'
 
 import { Icon16Sync } from '@vkontakte/icons'
 
-import { EModalIds } from 'constants/modals'
 import { EPanels } from 'constants/panels'
 import { EStatsTypes } from 'constants/stats'
 import { ESlotsTypes, ESlotsTypesIn } from 'constants/slots'
@@ -38,19 +36,24 @@ export const AssemblyPanel = ({ id }) => {
   const dispatch = useDispatch()
   const { pushPanel } = useRouterService()
 
-  const setModule = async (module_id, slot) => {
+  const [loading, setLoading] = useState(false)
+
+  const setModule = async (module, slot) => {
     let forceStart = false
     if (round === 10) {
       forceStart = true
     }
+    setLoading(true)
     await dispatch.sync(
       game.action.setModule({
         battle_id,
-        module_id,
+        module,
         slot,
         current_round_number: round,
       })
-    )
+    ).finally(() => {
+      setLoading(false)
+    })
     if (forceStart) {
       await startFight()
     }
@@ -87,18 +90,18 @@ export const AssemblyPanel = ({ id }) => {
 
         <StatsBar
           health={{
-            value: robot.specifications.health.total,
+            value: robot.health_max,
             aditionValue:
               '+' +
-              (robot.specifications.health.total -
-                robot.specifications.health.base),
+              (robot.health_max -
+                robot.health_base),
           }}
           energy={{
-            value: robot.specifications.energy.total,
+            value: robot.energy_max,
             aditionValue:
               '+' +
-              (robot.specifications.energy.total -
-                robot.specifications.energy.base),
+              (robot.energy_max -
+                robot.energy_base),
           }}
           onClick={() => setActiveModal('inventory')}
         />
@@ -114,7 +117,7 @@ export const AssemblyPanel = ({ id }) => {
             <Module
               id={index + module.id}
               key={index + module.id}
-              name={module.title}
+              name={module.name}
               element={ESlotsTypes[module.slots.join(', ')]}
               description={module.description}
               slot={module.slots[0]}
@@ -134,8 +137,10 @@ export const AssemblyPanel = ({ id }) => {
                         <Button
                           mode="primary"
                           onClick={() => {
-                            setModule(module.id, slot)
+                            setModule(module.code, slot)
                           }}
+                          loading={loading}
+                          disabled={loading}
                         >
                           Установить {ESlotsTypesIn[slot]}
                         </Button>
@@ -146,10 +151,12 @@ export const AssemblyPanel = ({ id }) => {
                         mode="secondary"
                         before={<Icon16Sync />}
                         onClick={() => {
-                          setModule(module.id, slot)
+                          setModule(module.code, slot)
                         }}
+                        loading={loading}
+                        disabled={loading}
                       >
-                        Заменить ({installed_module_in_slot[0].title})
+                        Заменить ({installed_module_in_slot[0].name})
                       </Button>
                     )
                   })}

@@ -1,4 +1,4 @@
 export const EGameStatus = {
   finished: 'finished',
-  fighting: 'battle',
+  fighting: 'fight',
 }

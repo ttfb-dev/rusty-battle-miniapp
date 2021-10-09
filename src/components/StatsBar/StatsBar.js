@@ -7,7 +7,7 @@ import { StatInfo } from 'components/StatInfo'
 
 import './StatsBar.css'
 
-export const StatsBar = ({ health, energy, onClick }) => {
+export const StatsBar = ({ health, health_base, health_max, energy, onClick }) => {
   const before = (
     <ul className="StatsBar__allStats">
       <li className="StatsBar__stat">

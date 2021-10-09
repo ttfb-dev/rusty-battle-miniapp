@@ -11,31 +11,31 @@ import {
 import { ModalHeader } from 'components/ModalHeader'
 import { useRouterService } from 'services/router-service'
 import { EPanels } from 'constants/panels'
-import { EModalIds } from 'constants/modals'
-
-const VICTORY_DATA = {
-  header: 'Ты победил!',
-  description: (
-    <React.Fragment>
-      Твой робот уничтожил РобоБосса, продолжай в&nbsp;том&nbsp;же духе!
-    </React.Fragment>
-  ),
-}
-const LESION_DATA = {
-  header: 'Победил РобоБосс!',
-  description: (
-    <React.Fragment>
-      Босс уничтожил твоего робота, в&nbsp;следующий раз тебе повезет больше
-    </React.Fragment>
-  ),
-}
 
 export const GameResultModal = ({ id }) => {
+  
   const { setActiveModal, pushPanel } = useRouterService()
 
   const winner = useSelector((store) => store.game.winner)
   const userId = useSelector((store) => store.general.user_id)
   const bossName = useSelector((store) => store.general.bossName)
+
+  const VICTORY_DATA = {
+    header: 'Ты победил!',
+    description: (
+      <React.Fragment>
+        {`Твой робот уничтожил ${bossName}, продолжай в&nbsp;том&nbsp;же духе!`}
+      </React.Fragment>
+    ),
+  }
+  const LESION_DATA = {
+    header: `Победил ${bossName}!`,
+    description: (
+      <React.Fragment>
+        {`Босс уничтожил твоего робота, в&nbsp;следующий раз тебе повезет больше`}
+      </React.Fragment>
+    ),
+  }
 
   const avatar =
     winner === 'core'

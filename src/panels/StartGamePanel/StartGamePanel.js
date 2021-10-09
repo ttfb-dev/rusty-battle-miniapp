@@ -14,6 +14,7 @@ import { Panel } from 'components/Panel'
 import { GAME_NAME } from 'constants/common'
 import { useRouterService } from 'services/router-service'
 import { EPanels } from 'constants/panels'
+import { RobotAvatar } from 'components/RobotAvatar'
 
 export const StartGamePanel = ({ id }) => {
   const dispatch = useDispatch()
@@ -30,6 +31,7 @@ export const StartGamePanel = ({ id }) => {
   }
 
   const bossName = useSelector((store) => store.general.bossName)
+  const userId = useSelector((store) => store.general.userId)
 
   const actions = (
     <div>
@@ -61,7 +63,7 @@ export const StartGamePanel = ({ id }) => {
       header={<PanelHeader separator={false}>{GAME_NAME}</PanelHeader>}
     >
       <Placeholder
-        style={{ marginTop: '24.47368421vh' }}
+        icon={<RobotAvatar slug={userId} />}
         header={
           <Title level="1" weight="semibold">
             Пора собрать робота

@@ -95,7 +95,7 @@ const initialState = {
   'hand_r';
   'head';
   'core';
-  'feet';
+  'foot';
  */
 
 /* robot.effects[] :
@@ -155,7 +155,7 @@ const reducer = (state = initialState, action) => {
         }
       }
 
-      my_robot_act.modules[activating_module_index].status = 'active'
+      my_robot_act.modules[activating_module_index].status = 'selected'
 
       return {
         ...state,
@@ -179,7 +179,7 @@ const reducer = (state = initialState, action) => {
         }
       }
 
-      my_robot_deact.modules[deactivating_module_index].status = 'ready'
+      my_robot_deact.modules[deactivating_module_index].status = 'active'
 
       return {
         ...state,

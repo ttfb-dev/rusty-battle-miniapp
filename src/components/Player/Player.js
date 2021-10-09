@@ -43,14 +43,14 @@ const PlayerStats = ({ type, options }) => {
 }
 
 export const Player = ({ effects, user, specifications, onClick }) => {
-  const { health, energy } = specifications
+  const { health, health_max, health_base, energy, energy_max, energy_base } = specifications
 
   return (
     <React.Fragment>
       <Profile user={user} effects={effects} onClick={onClick} />
 
-      <PlayerStats type={EStatsTypes.health} options={health} />
-      <PlayerStats type={EStatsTypes.energy} options={energy} />
+      <PlayerStats type={EStatsTypes.health} options={{value: health, base: health_base, total: health_max}} />
+      <PlayerStats type={EStatsTypes.energy} options={{value: energy, base: energy_base, total: energy_max}} />
     </React.Fragment>
   )
 }

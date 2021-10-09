@@ -22,9 +22,9 @@ const SECTIONS = {
     title: 'Руки',
     slotIds: [ESlotsIds.hand_l, ESlotsIds.hand_r],
   },
-  [ESlotsSections.feet]: {
+  [ESlotsSections.foot]: {
     title: 'Ноги',
-    slotIds: [ESlotsIds.feet],
+    slotIds: [ESlotsIds.foot],
   },
 }
 
@@ -42,10 +42,10 @@ export const Inventory = ({ modules = [] }) => {
       >
         {modulesOnSection.length ? (
           modulesOnSection.map(
-            ({ id, slot, title, description, image, energy, damage }) => (
+            ({ id, slot, name, description, image, energy, damage }) => (
               <Module
                 key={id}
-                name={title}
+                name={name}
                 slot={slot}
                 image={image}
                 description={description}
@@ -58,7 +58,7 @@ export const Inventory = ({ modules = [] }) => {
             )
           )
         ) : (
-          <Placeholder>Оружие не добавлено</Placeholder>
+          <Placeholder>Модулей не добавлено</Placeholder>
         )}
       </Group>
     )
@@ -69,7 +69,7 @@ export const Inventory = ({ modules = [] }) => {
       {getSlotModules(ESlotsSections.head)}
       {getSlotModules(ESlotsSections.core)}
       {getSlotModules(ESlotsSections.hands)}
-      {getSlotModules(ESlotsSections.feet)}
+      {getSlotModules(ESlotsSections.foot)}
 
       <Group separator="hide">
         <Caption
