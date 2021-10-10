@@ -68,7 +68,7 @@ export const StartGamePanel = ({ id }) => {
           </Group>
         : <Group>
             <CellButton disabled={isLoading} centered mode="primary" onClick={startGame}>Начать игру</CellButton>
-            <CellButton >&nbsp;</CellButton>
+            <CellButton disabled style={{cursor: "default"}}></CellButton>
             <CellButton centered onClick={() => pushPanel(EPanels.HELP)}>Правила</CellButton>
           </Group>
       }
