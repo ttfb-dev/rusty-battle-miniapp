@@ -1,20 +1,20 @@
-.FightPanel__header {
+.header {
   padding: 0;
   background-color: var(--background_page);
 }
 
-.FightPanel__boss,
-.FightPanel__user {
+.boss,
+.user {
   box-sizing: border-box;
   min-height: 128px;
   padding: 14px 0;
   background-color: var(--background_content);
 }
 
-.FightPanel__boss {
+.boss {
   border-radius: 0 0 24px 24px;
 }
 
-.FightPanel__user {
+.user {
   border-radius: 24px 24px 0 0;
 }

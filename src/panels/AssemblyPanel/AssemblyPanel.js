@@ -23,7 +23,7 @@ import { EPanels } from 'constants/panels'
 import { EStatsTypes } from 'constants/stats'
 import { ESlotsTypes, ESlotsTypesIn } from 'constants/slots'
 
-import './AssemblyPanel.css'
+import styles from './AssemblyPanel.module.scss'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { game } from 'store'
@@ -78,11 +78,11 @@ export const AssemblyPanel = ({ id }) => {
       >
         <StatusBar activeIndex={round - 1} />
 
-        <div className="AssemblyPanel__descriptionContainer">
+        <div className={styles.descriptionContainer}>
           <Title level="2" weight="semibold">
             Собери робота
           </Title>
-          <Caption className="AssemblyPanel__description" level="1">
+          <Caption className={styles.description} level="1">
             Выбери модули из&nbsp;предложенных для установки
             их&nbsp;на&nbsp;робота и&nbsp;начала боя
           </Caption>
@@ -170,6 +170,7 @@ export const AssemblyPanel = ({ id }) => {
         vertical="bottom"
         style={{
           padding: '14px 16px',
+          paddingBottom: 'var(--safe-area-inset-bottom)',
           backgroundColor: 'var(--background_content)',
         }}
       >

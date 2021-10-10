@@ -23,7 +23,8 @@ import { EGameStatus } from 'constants/game'
 import { useRouterService } from 'services/router-service'
 import { game } from 'store'
 
-import './FightPanel.css'
+
+import styles from './FightPanel.module.scss';
 import { EPanels } from 'constants/panels'
 
 export const FightPanel = ({ id }) => {
@@ -111,8 +112,8 @@ export const FightPanel = ({ id }) => {
       }
     >
       <FixedLayout vertical="top">
-        <Div className="FightPanel__header">
-          <Div className="FightPanel__boss">
+        <Div className={styles.header}>
+          <Div className={styles.boss}>
             <Player
               user={{
                 image: `https://robohash.org/${bossName}.png`,
@@ -130,7 +131,7 @@ export const FightPanel = ({ id }) => {
             />
           </Div>
           <Spacing />
-          <Div className="FightPanel__user">
+          <Div className={styles.user}>
             <Player
               user={{
                 image: `https://robohash.org/${userId}.png`,
