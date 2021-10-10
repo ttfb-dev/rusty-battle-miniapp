@@ -43,7 +43,7 @@ export const ModalHeader = ({ children, onClose }) => {
           isMobile &&
           platform === ANDROID && <PanelHeaderClose onClick={handleClose} />
         }
-        onCloseClick={handleClose}
+        onClose={handleClose}
       >
         {children}
       </ModalPageHeader>

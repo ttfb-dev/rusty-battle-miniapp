@@ -13,6 +13,7 @@ import legsPng from 'assets/details/legs.png'
 import trashPng from 'assets/details/trash.png'
 
 import styles from './Module.module.scss'
+import classNames from 'classnames'
 
 const STATIC_IMAGES = {
   [ESlotsIds.head]: headPng,
@@ -47,12 +48,25 @@ export const Module = ({
 
   const filtred_stats = stats.filter(({ value }) => value)
 
-  const subheader = filtred_stats.map(({ type, value }, index) => (
-    <span key={index} className={`stat_type_${type}`}>
-      {EStatsNames[type]}: {value}
-      {index !== filtred_stats.length - 1 ? <span> · </span> : ''}
-    </span>
-  ))
+  const subheader = filtred_stats.map(({ type, value }, index) => {
+    let className = '';
+    switch(type) {
+      case 'energy':
+        className = styles.stat_type_energy;
+        break;
+      case 'health':
+        className = styles.stat_type_health;
+        break;
+      case 'damage':
+        className = styles.stat_type_damage;
+        break;
+    }
+    return (<span key={index} className={className}>
+        {EStatsNames[type]}: {value}
+        {index !== filtred_stats.length - 1 ? <span> · </span> : ''}
+      </span>
+    )
+  })
 
   return (
     <Banner

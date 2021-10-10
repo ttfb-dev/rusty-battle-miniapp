@@ -86,6 +86,7 @@ export const StartGamePanel = ({ id }) => {
     >
       <Placeholder
         icon={<RobotAvatar slug={userId} size={96} />}
+        style={{marginTop: "10vh"}}
         header={
           <Title level="1" weight="semibold">
             Пора собрать робота

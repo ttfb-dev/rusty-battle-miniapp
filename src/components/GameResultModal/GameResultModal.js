@@ -1,5 +1,5 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
 import { RobotAvatar } from 'components/RobotAvatar'
 
@@ -12,10 +12,13 @@ import {
 import { ModalHeader } from 'components/ModalHeader'
 import { useRouterService } from 'services/router-service'
 import { EPanels } from 'constants/panels'
+import { game } from 'store'
 
 export const GameResultModal = ({ id }) => {
   
   const { setActiveModal, pushPanel } = useRouterService()
+
+  const dispatch = useDispatch()
 
   const winner = useSelector((store) => store.game.winner)
   const userId = useSelector((store) => store.general.userId)
@@ -45,8 +48,10 @@ export const GameResultModal = ({ id }) => {
   const { header, description } = winner === 'core' ? LESION_DATA : VICTORY_DATA
 
   const handleClose = () => {
-    pushPanel(EPanels.START_GAME)
-    setActiveModal(null)
+    dispatch.sync(game.action.whereIAm()).finally(() => {
+      pushPanel(EPanels.START_GAME)
+      setActiveModal(null)
+    })
   }
 
   return (
