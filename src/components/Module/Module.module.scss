@@ -1,0 +1,28 @@
+.name {
+  padding: 0;
+  margin: 0;
+  &::first-letter {
+    text-transform: uppercase;
+  }
+} 
+
+.element {
+  color: var(--content_placeholder_text);
+}
+
+.description {
+  padding: 0;
+  margin: 0;
+  &::first-letter {
+    text-transform: uppercase;
+  }
+}
+
+.stat_type_energy {
+  color: var(--dynamic_purple);
+}
+
+.stat_type_damage,
+.stat_type_health {
+  color: var(--dynamic_red);
+}

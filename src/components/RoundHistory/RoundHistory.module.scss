@@ -1,0 +1,5 @@
+.row {
+  &::first-letter {
+    text-transform: uppercase;
+  }
+}

@@ -11,11 +11,11 @@ export const CloseGameModal = ({ id }) => {
   const dispatch = useDispatch()
 
   const [loading, setLoading] = useState(false)
-  const battle_id = useSelector((state) => state.game.battle_id)
+  const battle_id = useSelector((store) => store.game.battle_id)
 
   const onExit = () => {
     setLoading(true)
-    dispatch.sync(game.action.forceFinish(battle_id)).finally(() => {
+    dispatch.sync(game.action.forceFinish({battle_id})).finally(() => {
       setLoading(false)
       setActiveModal(null)
       pushPanel(EPanels.START_GAME)

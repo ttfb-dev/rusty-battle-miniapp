@@ -36,7 +36,7 @@ export const FightPanel = ({ id }) => {
 
   const dispatch = useDispatch()
   const bossName = useSelector((store) => store.general.bossName)
-  const userId = useSelector((store) => store.general.user_id)
+  const userId = useSelector((store) => store.general.userId)
   const my_robot = useSelector((store) => store.game.my_robot)
   const boss = useSelector((store) => store.game.boss)
   const battle_id = useSelector((store) => store.game.battle_id)

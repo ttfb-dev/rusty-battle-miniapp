@@ -12,7 +12,7 @@ import rHandPng from 'assets/details/r-hand.png'
 import legsPng from 'assets/details/legs.png'
 import trashPng from 'assets/details/trash.png'
 
-import './Module.css'
+import styles from './Module.module.scss'
 
 const STATIC_IMAGES = {
   [ESlotsIds.head]: headPng,
@@ -35,15 +35,20 @@ export const Module = ({
 }) => {
   const header = (
     <React.Fragment>
-      <span>{name}</span>
-      <span className="Module__element"> · {element}</span>
+      <p className={styles.name} >{name}
+        <span className={styles.element}> · {element}</span>
+      </p>
     </React.Fragment>
+  )
+
+  const text = (
+    <p className={styles.description} >{description}</p>
   )
 
   const filtred_stats = stats.filter(({ value }) => value)
 
   const subheader = filtred_stats.map(({ type, value }, index) => (
-    <span key={index} className={`Module__stat Module__stat_type_${type}`}>
+    <span key={index} className={`stat_type_${type}`}>
       {EStatsNames[type]}: {value}
       {index !== filtred_stats.length - 1 ? <span> · </span> : ''}
     </span>
@@ -60,7 +65,7 @@ export const Module = ({
       }
       header={header}
       subheader={subheader}
-      text={description}
+      text={text}
       actions={actions}
     />
   )

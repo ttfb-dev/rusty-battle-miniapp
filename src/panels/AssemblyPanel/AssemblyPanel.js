@@ -124,7 +124,7 @@ export const AssemblyPanel = ({ id }) => {
               slot={module.slots[0]}
               image={module.image}
               stats={[
-                { type: EStatsTypes.energy, value: module.energy },
+                { type: EStatsTypes.energy, value: module.energy_coast },
                 { type: EStatsTypes.damage, value: module.damage },
               ]}
               actions={

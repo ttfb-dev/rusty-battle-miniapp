@@ -42,7 +42,7 @@ export const Inventory = ({ modules = [] }) => {
       >
         {modulesOnSection.length ? (
           modulesOnSection.map(
-            ({ id, slot, name, description, image, energy, damage }) => (
+            ({ id, slot, name, description, image, energy_coast, damage }) => (
               <Module
                 key={id}
                 name={name}
@@ -51,7 +51,7 @@ export const Inventory = ({ modules = [] }) => {
                 description={description}
                 element={ESlotsTypes[slot]}
                 stats={[
-                  { type: EStatsTypes.energy, value: energy },
+                  { type: EStatsTypes.energy, value: energy_coast },
                   { type: EStatsTypes.damage, value: damage },
                 ].filter(({ value }) => Boolean(value))}
               />

@@ -18,7 +18,7 @@ export const GameResultModal = ({ id }) => {
   const { setActiveModal, pushPanel } = useRouterService()
 
   const winner = useSelector((store) => store.game.winner)
-  const userId = useSelector((store) => store.general.user_id)
+  const userId = useSelector((store) => store.general.userId)
   const bossName = useSelector((store) => store.general.bossName)
 
   const VICTORY_DATA = {

@@ -3,7 +3,6 @@ import md5 from 'md5'
 import { Avatar } from '@vkontakte/vkui'
 
 export const RobotAvatar = ({ slug, ...props }) => {
-  console.log(slug)
   return (
     <Avatar
       {...props}
