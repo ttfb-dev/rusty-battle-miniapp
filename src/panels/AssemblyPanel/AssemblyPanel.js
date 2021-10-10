@@ -7,6 +7,7 @@ import {
   Separator,
   Spacing,
   FixedLayout,
+  Div,
 } from '@vkontakte/vkui'
 
 import { useRouterService } from 'services/router-service'
@@ -168,39 +169,37 @@ export const AssemblyPanel = ({ id }) => {
 
       <FixedLayout
         vertical="bottom"
-        style={{
-          padding: '14px 16px',
-          paddingBottom: 'var(--safe-area-inset-bottom)',
-          backgroundColor: 'var(--background_content)',
-        }}
+        className={styles.fixedLayout}
       >
-        {!isLastRound && round >= 2 && robot.modules.length >= 1 && (
-          <>
-            <Button
-              stretched
-              size="m"
-              mode="tertiary"
-              onClick={() => {
-                startFight()
-              }}
-            >
-              Начать бой раньше
-            </Button>
-            <Spacing size={12} />
-            <Separator />
-            <Spacing size={12} />
-          </>
-        )}
-        <Button
-          stretched
-          size="m"
-          mode={isLastRound ? 'primary' : 'secondary'}
-          onClick={() => {
-            setModule(null, null)
-          }}
-        >
-          {isLastRound ? 'Начать бой' : 'Пропустить'}
-        </Button>
+        <Div>
+          {!isLastRound && round >= 2 && robot.modules.length >= 1 && (
+            <>
+              <Button
+                stretched
+                size="m"
+                mode="tertiary"
+                onClick={() => {
+                  startFight()
+                }}
+              >
+                Начать бой раньше
+              </Button>
+              <Spacing size={12} />
+              <Separator />
+              <Spacing size={12} />
+            </>
+          )}
+          <Button
+            stretched
+            size="m"
+            mode={isLastRound ? 'primary' : 'secondary'}
+            onClick={() => {
+              setModule(null, null)
+            }}
+          >
+            {isLastRound ? 'Начать бой' : 'Пропустить'}
+          </Button>
+        </Div>
       </FixedLayout>
 
       <div style={{ paddingTop: '125px' }} />
