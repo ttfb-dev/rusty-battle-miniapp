@@ -3,7 +3,7 @@ import { badgeStyles } from '@logux/client/badge/styles';
 import bridge from "@vkontakte/vk-bridge";
 
 import { creds, env, misc } from './shared/config';
-import { general, profile, store } from './store';
+import { general, profile, game, store } from './store';
 
 // store init
 store.client.start();
@@ -13,6 +13,9 @@ if (creds.userId) {
   store.dispatch(general.action.setUserId({ userId: parseInt(creds.userId, 10) }));
   store.dispatch.sync(profile.action.getGameProfile());
   store.dispatch.sync(general.action.getBossName());
+  store.dispatch.sync(game.action.whereIAm()).finally(() => {
+    store.dispatch(game.action.initDone())
+  });
 }
 
 (async () => {

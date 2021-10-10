@@ -1,4 +1,6 @@
 export const EGameStatus = {
+  arming: 'arming',
   finished: 'finished',
-  fighting: 'fight',
+  force_finished: 'force_finished',
+  fight: 'fight',
 }

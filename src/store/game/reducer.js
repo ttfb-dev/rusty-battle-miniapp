@@ -4,6 +4,10 @@ import {
   activateModule,
   deactivateModule,
   fightStep,
+  whereIAm,
+  forceFinish,
+  loadGame,
+  initDone,
 } from './action'
 
 const initialState = {
@@ -13,99 +17,11 @@ const initialState = {
     round: 0,
     modules: [],
   },
-  status: null,
   log: [],
-  my_robot: {
-    specifications: {
-      health: {
-        total: 0,
-        base: 0,
-        value: 0,
-      },
-      energy: {
-        total: 0,
-        base: 0,
-        value: 0,
-      },
-    },
-    effects: [],
-    modules: [],
-  },
-  boss: {
-    specifications: {
-      health: {
-        total: 0,
-        base: 0,
-        value: 0,
-      },
-      energy: {
-        total: 0,
-        base: 0,
-        value: 0,
-      },
-    },
-    effects: [],
-    modules: [],
-  },
+  my_robot: {},
+  boss: {},
+  loading: true,
 }
-
-/** status
- * in_progress - этап сбора модулей
- * in_battle - сражение
- * finish - закончено
- */
-
-/** module.status
- * ready - можно активировать
- * active - активирован
- * disabled - заблокирован: нельзя активировать
- */
-
-/* shuffle.modules[] :
-{
-  id: '',
-  title: '',
-  description: '',
-  energy: 0,
-  energy_add: 0,
-  health_add: 0,
-  damage: 0,
-  image: '',
-  slots: [],
-}
-*/
-
-/* robot.modules[] :
-{
-  id: '',
-  title: '',
-  description: '',
-  energy: 0,
-  energy_add: 0,
-  health_add: 0,
-  damage: 0,
-  status: '',
-  image: '',
-  slot: 'head',
-}
-*/
-
-/** slots:
-  'hand_l';
-  'hand_r';
-  'head';
-  'core';
-  'foot';
- */
-
-/* robot.effects[] :
-{
-  id: '',
-  title: '',
-  description: '',
-  image: '',
-}
-*/
 
 const reducer = (state = initialState, action) => {
   const { type, ...payload } = action
@@ -119,15 +35,13 @@ const reducer = (state = initialState, action) => {
       }
 
     case 'game/shuffle_set':
-      const shuffle = {
-        ...state.shuffle,
-        modules: payload.modules,
-        round: payload.round,
-      }
-
       return {
         ...state,
-        shuffle,
+        shuffle: {
+          ...state.shuffle,
+          modules: payload.modules,
+          round: payload.round,
+        },
         my_robot: { ...payload.robot },
       }
 
@@ -195,6 +109,39 @@ const reducer = (state = initialState, action) => {
         boss: payload.boss ? { ...payload.boss } : state.boss,
         my_robot: payload.robot ? { ...payload.robot } : state.my_robot,
       }
+    
+    case whereIAm.type + '_success': 
+      return {
+        ...state,
+        status: payload.status,
+        battle_id: payload.battle_id
+      }
+
+    case forceFinish.type + '_success': 
+      return {
+        ...state,
+        status: payload.status,
+        battle_id: payload.battle_id
+      }
+
+    case loadGame.type + '_success':
+      return {
+        ...state,
+        my_robot: { ...payload.robot },
+        boss: { ...payload.boss },
+        shuffle: {
+          ...state.shuffle,
+          modules: payload.modules,
+          round: payload.arming_round_number,
+        },
+      }
+
+    case initDone.type: {
+      return {
+        ...state,
+        loading: false,
+      }
+    }
 
     default:
       return state

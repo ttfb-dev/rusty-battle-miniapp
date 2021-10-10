@@ -6,7 +6,8 @@ import {
   PanelHeader,
   Placeholder,
   Title,
-  Button,
+  Group,
+  CellButton,
   Spinner,
 } from '@vkontakte/vkui'
 
@@ -15,12 +16,18 @@ import { GAME_NAME } from 'constants/common'
 import { useRouterService } from 'services/router-service'
 import { EPanels } from 'constants/panels'
 import { RobotAvatar } from 'components/RobotAvatar'
+import { EGameStatus } from 'constants/game'
 
 export const StartGamePanel = ({ id }) => {
   const dispatch = useDispatch()
   const { pushPanel, setActiveModal } = useRouterService()
 
+  const isInitializing = useSelector((state) => state.game.loading)
+
   const [isLoading, setIsLoading] = React.useState(false)
+
+  const battle_id = useSelector((state) => state.game.battle_id)
+  const status = useSelector((state) => state.game.status)
 
   const startGame = async () => {
     setIsLoading(true)
@@ -30,32 +37,47 @@ export const StartGamePanel = ({ id }) => {
     pushPanel(EPanels.ASSEMBLY)
   }
 
+  const backToGame = async () => {
+    setIsLoading(true)
+    await dispatch.sync(game.action.loadGame({battle_id}))
+    setIsLoading(false)
+
+    if (status === EGameStatus.arming) {
+      pushPanel(EPanels.ASSEMBLY)
+    } else if (status === EGameStatus.fight) {
+      pushPanel(EPanels.FIGHT)
+    }
+  }
+
+  const forceFinish = async () => {
+    setIsLoading(true)
+    await dispatch.sync(game.action.forceFinish({battle_id}))
+    setIsLoading(false)
+  }
+
   const bossName = useSelector((store) => store.general.bossName)
   const userId = useSelector((store) => store.general.userId)
 
   const actions = (
-    <div>
-      <div style={{ marginBottom: '24px' }}>
-        <Button
-          size="m"
-          disabled={isLoading}
-          style={{ minWidth: '120px' }}
-          onClick={startGame}
-        >
-          {isLoading ? <Spinner size="small" /> : 'Начать игру'}
-        </Button>
-      </div>
-      <div>
-        <Button
-          size="m"
-          mode="tertiary"
-          onClick={() => pushPanel(EPanels.HELP)}
-        >
-          Правила
-        </Button>
-      </div>
-    </div>
+    <>
+      { battle_id 
+        ? <Group>
+            <CellButton disabled={isLoading} centered mode="primary" onClick={backToGame} >Вернуться в битву</CellButton>
+            <CellButton disabled={isLoading} centered mode="danger" onClick={forceFinish}>Покинуть</CellButton>
+            <CellButton centered onClick={() => pushPanel(EPanels.HELP)}>Правила</CellButton>
+          </Group>
+        : <Group>
+            <CellButton disabled={isLoading} centered mode="primary" onClick={startGame}>Начать игру</CellButton>
+            <CellButton >&nbsp;</CellButton>
+            <CellButton centered onClick={() => pushPanel(EPanels.HELP)}>Правила</CellButton>
+          </Group>
+      }
+    </>
   )
+
+  const action = isInitializing 
+      ? <Spinner />
+      : actions
 
   return (
     <Panel
@@ -63,13 +85,13 @@ export const StartGamePanel = ({ id }) => {
       header={<PanelHeader separator={false}>{GAME_NAME}</PanelHeader>}
     >
       <Placeholder
-        icon={<RobotAvatar slug={userId} />}
+        icon={<RobotAvatar slug={userId} height={300} width={300} />}
         header={
           <Title level="1" weight="semibold">
             Пора собрать робота
           </Title>
         }
-        action={actions}
+        action={action}
       >
         Собери робота и сразись
         <br />с повелителем свалки по имени

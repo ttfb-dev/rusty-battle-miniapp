@@ -84,7 +84,7 @@ export const FightPanel = ({ id }) => {
     setIsLoading(false)
 
     switch(status) {
-      case EGameStatus.fighting:
+      case EGameStatus.fight:
         setActiveModal(EModalIds.roundResult)
         break;
       case EGameStatus.finished:

@@ -5,7 +5,7 @@ const isDev = process.env.NODE_ENV === 'development';
 const initialState = {
   userId: null,
   isDebug: isDev,
-  bossName: 'выбираем имя...'
+  bossName: 'выбираем имя...',
 };
 
 const reducer = (state = initialState, action) => {
