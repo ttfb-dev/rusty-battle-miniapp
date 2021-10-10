@@ -1,8 +1,9 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 
+import { RobotAvatar } from 'components/RobotAvatar'
+
 import {
-  Avatar,
   Button,
   ModalPage,
   Placeholder,
@@ -24,7 +25,7 @@ export const GameResultModal = ({ id }) => {
     header: 'Ты победил!',
     description: (
       <React.Fragment>
-        {`Твой робот уничтожил ${bossName}, продолжай в&nbsp;том&nbsp;же духе!`}
+       Твой робот уничтожил босса <b>{bossName}</b>, продолжай в&nbsp;том&nbsp;же духе!
       </React.Fragment>
     ),
   }
@@ -32,15 +33,15 @@ export const GameResultModal = ({ id }) => {
     header: `Победил ${bossName}!`,
     description: (
       <React.Fragment>
-        {`Босс уничтожил твоего робота, в&nbsp;следующий раз тебе повезет больше`}
+        Босс уничтожил твоего робота, в&nbsp;следующий раз тебе повезет больше
       </React.Fragment>
     ),
   }
 
   const avatar =
     winner === 'core'
-      ? `https://robohash.org/${bossName}.png`
-      : `https://robohash.org/${userId}.png`
+      ? bossName
+      : userId
   const { header, description } = winner === 'core' ? LESION_DATA : VICTORY_DATA
 
   const handleClose = () => {
@@ -54,7 +55,7 @@ export const GameResultModal = ({ id }) => {
       header={<ModalHeader>Битва окончена</ModalHeader>}
       onClose={handleClose}
     >
-      <Placeholder icon={<Avatar size={72} src={avatar} />} header={header}>
+      <Placeholder icon={<RobotAvatar size={72} slug={avatar} />} header={header}>
         {description}
       </Placeholder>
 

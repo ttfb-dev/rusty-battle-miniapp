@@ -33,6 +33,7 @@
     "eruda": "^2.4.1",
     "eruda-code": "^2.0.0",
     "eruda-dom": "^2.0.0",
+    "md5": "^2.3.0",
     "nanostores": "^0.4.8",
     "node-sass": "^6.0.1",
     "plural-ru": "^2.0.2",

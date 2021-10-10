@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { game } from 'store'
 
@@ -24,7 +24,7 @@ export const StartGamePanel = ({ id }) => {
 
   const isInitializing = useSelector((state) => state.game.loading)
 
-  const [isLoading, setIsLoading] = React.useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
   const battle_id = useSelector((state) => state.game.battle_id)
   const status = useSelector((state) => state.game.status)
@@ -85,7 +85,7 @@ export const StartGamePanel = ({ id }) => {
       header={<PanelHeader separator={false}>{GAME_NAME}</PanelHeader>}
     >
       <Placeholder
-        icon={<RobotAvatar slug={userId} height={300} width={300} />}
+        icon={<RobotAvatar slug={userId} size={96} />}
         header={
           <Title level="1" weight="semibold">
             Пора собрать робота

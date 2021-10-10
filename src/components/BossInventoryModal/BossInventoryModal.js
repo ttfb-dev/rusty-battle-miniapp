@@ -32,7 +32,7 @@ export const BossInventoryModal = ({ id }) => {
       <Profile
         effects="Нет эффектов"
         user={{
-          image: `https://robohash.org/${bossName}.png`,
+          slug: bossName,
           name: bossName,
         }}
       />

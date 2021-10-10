@@ -116,7 +116,7 @@ export const FightPanel = ({ id }) => {
           <Div className={styles.boss}>
             <Player
               user={{
-                image: `https://robohash.org/${bossName}.png`,
+                slug: bossName,
                 name: bossName,
               }}
               specifications={{
@@ -134,7 +134,7 @@ export const FightPanel = ({ id }) => {
           <Div className={styles.user}>
             <Player
               user={{
-                image: `https://robohash.org/${userId}.png`,
+                slug: userId,
                 name: 'Мой робот',
               }}
               specifications={{

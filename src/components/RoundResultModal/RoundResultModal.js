@@ -7,33 +7,14 @@ import {
   ModalPageHeader,
   Separator,
   Placeholder,
+  Div,
 } from '@vkontakte/vkui'
 
 import { useRouterService } from 'services/router-service'
 import { RoundHistory } from 'components/RoundHistory'
 import { EStatsTypes } from 'constants/stats'
 
-import './RoundResultModal.css'
-
-const RESULT = {
-  level: 1,
-  user: {
-    name: 'Твой робот',
-    history: [
-      { type: EStatsTypes.damage, value: -5 },
-      { type: EStatsTypes.energy, value: -7 },
-    ],
-  },
-  boss: {
-    name: 'РобоБосс',
-    history: [
-      {
-        type: EStatsTypes.effects,
-        value: 'Следующий атакующий модуль наносит на 1 урона больше',
-      },
-    ],
-  },
-}
+import styles from './RoundResultModal.module.scss'
 
 export const RoundResultModal = ({ id }) => {
   const { setActiveModal } = useRouterService()
@@ -56,21 +37,21 @@ export const RoundResultModal = ({ id }) => {
           }))}
         />
       ) : (
-        <Placeholder>В этот ход нет эффектов</Placeholder>
+        <Placeholder>Никаких действий не совершалось</Placeholder>
       )}
 
-      <footer className="RoundResultModal__footer">
-        <Separator />
-        <div style={{ padding: '12px 16px' }}>
+        
+        <Div className={styles.buttonContainer}>
+          <Separator />
           <Button
             size="l"
-            style={{ width: '100%' }}
+            mode="primary"
+            stretched
             onClick={() => setActiveModal(null)}
           >
             Продолжить
           </Button>
-        </div>
-      </footer>
+        </Div>
     </ModalPage>
   )
 }
