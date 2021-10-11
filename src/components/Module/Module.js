@@ -13,7 +13,6 @@ import legsPng from 'assets/details/legs.png'
 import trashPng from 'assets/details/trash.png'
 
 import styles from './Module.module.scss'
-import classNames from 'classnames'
 
 const STATIC_IMAGES = {
   [ESlotsIds.head]: headPng,
