@@ -26,7 +26,7 @@ export const BossInventoryModal = ({ id }) => {
     <ModalPage
       id={id}
       header={<ModalHeader>{bossName}</ModalHeader>}
-      dynamicContentHeight
+      settingHeight={100}
       onClose={handleClose}
     >
       <Profile

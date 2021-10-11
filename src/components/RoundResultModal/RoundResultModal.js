@@ -24,6 +24,7 @@ export const RoundResultModal = ({ id }) => {
   return (
     <ModalPage
       id={id}
+      settlingHeight={100}
       header={<ModalPageHeader separator>Раунд завершен</ModalPageHeader>}
       onClose={() => setActiveModal(null)}
     >

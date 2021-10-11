@@ -23,7 +23,7 @@ export const InventoryModal = ({ id }) => {
     <ModalPage
       id={id}
       header={<ModalHeader>Мои предметы</ModalHeader>}
-      dynamicContentHeight
+      settingHeight={100}
       onClose={handleClose}
     >
       <Inventory modules={modules} />
