@@ -14,6 +14,11 @@ import { useRouterService } from 'services/router-service'
 import { EPanels } from 'constants/panels'
 import { game } from 'store'
 
+function declOfNum(number, titles) {  
+  cases = [2, 0, 1, 1, 1, 2];  
+  return titles[ (number%100>4 && number%100<20)? 2 : cases[(number%10<5)?number%10:5] ];  
+}
+
 export const GameResultModal = ({ id }) => {
   
   const { setActiveModal, pushPanel } = useRouterService()
@@ -21,6 +26,7 @@ export const GameResultModal = ({ id }) => {
   const dispatch = useDispatch()
 
   const winner = useSelector((store) => store.game.winner)
+  const points = useSelector((store) => store.game.points)
   const userId = useSelector((store) => store.general.userId)
   const bossName = useSelector((store) => store.general.bossName)
 
@@ -28,7 +34,8 @@ export const GameResultModal = ({ id }) => {
     header: 'Ты победил!',
     description: (
       <React.Fragment>
-       Твой робот уничтожил босса <b>{bossName}</b>, продолжай в&nbsp;том&nbsp;же духе!
+       Твой робот уничтожил босса <b>{bossName}</b>, продолжай в&nbsp;том&nbsp;же духе!<br />
+       Твой результат: {points} {declOfNum(points,  ['очко', 'очка', 'очков'])}
       </React.Fragment>
     ),
   }
@@ -36,7 +43,8 @@ export const GameResultModal = ({ id }) => {
     header: `Победил ${bossName}!`,
     description: (
       <React.Fragment>
-        Босс уничтожил твоего робота, в&nbsp;следующий раз тебе повезет больше
+        Босс уничтожил твоего робота, в&nbsp;следующий раз тебе повезет больше<br />
+       Твой результат: {points} {declOfNum(points,  ['очко', 'очка', 'очков'])}
       </React.Fragment>
     ),
   }

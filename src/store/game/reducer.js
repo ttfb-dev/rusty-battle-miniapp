@@ -21,6 +21,7 @@ const initialState = {
   my_robot: {},
   boss: {},
   loading: true,
+  points: 0,
 }
 
 const reducer = (state = initialState, action) => {
@@ -108,6 +109,7 @@ const reducer = (state = initialState, action) => {
         winner: payload.winner,
         boss: payload.boss ? { ...payload.boss } : state.boss,
         my_robot: payload.robot ? { ...payload.robot } : state.my_robot,
+        points: payload.points,
       }
     
     case whereIAm.type + '_success': 
