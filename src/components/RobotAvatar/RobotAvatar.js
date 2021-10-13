@@ -6,7 +6,7 @@ export const RobotAvatar = ({ slug, ...props }) => {
   return (
     <Avatar
       {...props}
-      src={`https://avatar.robots-game.ru/${md5(String(slug))}.png`}
+      src={`https://api.robots-game.ru/avatar/${md5(String(slug))}.png`}
     />
   )
 }
