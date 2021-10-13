@@ -35,7 +35,7 @@ export const GameResultModal = ({ id }) => {
     description: (
       <React.Fragment>
        Твой робот уничтожил босса <b>{bossName}</b>, продолжай в&nbsp;том&nbsp;же духе!<br />
-       Твой результат: {points} {declOfNum(points,  ['очко', 'очка', 'очков'])}
+       Твой результат: <b>{points} {declOfNum(points,  ['очко', 'очка', 'очков'])}</b>
       </React.Fragment>
     ),
   }
@@ -44,7 +44,7 @@ export const GameResultModal = ({ id }) => {
     description: (
       <React.Fragment>
         Босс уничтожил твоего робота, в&nbsp;следующий раз тебе повезет больше<br />
-       Твой результат: {points} {declOfNum(points,  ['очко', 'очка', 'очков'])}
+       Твой результат: <b>{points} {declOfNum(points,  ['очко', 'очка', 'очков'])}</b>
       </React.Fragment>
     ),
   }
