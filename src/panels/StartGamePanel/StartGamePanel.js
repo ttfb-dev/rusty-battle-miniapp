@@ -3,102 +3,113 @@ import { useDispatch, useSelector } from 'react-redux'
 import { game } from 'store'
 
 import {
+  Panel,
   PanelHeader,
+  PanelHeaderBack,
   Placeholder,
-  Title,
+  View,
   Group,
-  CellButton,
-  Spinner,
+  Tabbar,
+  TabbarItem,
+  Epic,
 } from '@vkontakte/vkui'
 
-import { Panel } from 'components/Panel'
+import {
+  Icon56NewsfeedOutline,
+  Icon28ServicesOutline,
+  Icon28UserCircleOutline,
+  Icon28ClipOutline,
+  Icon24RobotOutline,
+  Icon28InfoOutline,
+  Icon24StarsOutline,
+} from '@vkontakte/icons'
+
 import { GAME_NAME } from 'constants/common'
-import { useRouterService } from 'services/router-service'
-import { EPanels } from 'constants/panels'
-import { RobotAvatar } from 'components/RobotAvatar'
-import { EGameStatus } from 'constants/game'
+import { StartGameView } from './views/StartGameView'
 
 export const StartGamePanel = ({ id }) => {
   const dispatch = useDispatch()
-  const { pushPanel, setActiveModal } = useRouterService()
-
-  const isInitializing = useSelector((state) => state.game.loading)
-
-  const [isLoading, setIsLoading] = useState(false)
-
-  const battle_id = useSelector((state) => state.game.battle_id)
-  const status = useSelector((state) => state.game.status)
-
-  const startGame = async () => {
-    setIsLoading(true)
-    await dispatch.sync(game.action.startGame())
-    setIsLoading(false)
-
-    pushPanel(EPanels.ASSEMBLY)
-  }
-
-  const backToGame = async () => {
-    setIsLoading(true)
-    await dispatch.sync(game.action.loadGame({battle_id}))
-    setIsLoading(false)
-
-    if (status === EGameStatus.arming) {
-      pushPanel(EPanels.ASSEMBLY)
-    } else if (status === EGameStatus.fight) {
-      pushPanel(EPanels.FIGHT)
-    }
-  }
-
-  const forceFinish = async () => {
-    setIsLoading(true)
-    await dispatch.sync(game.action.forceFinish({battle_id}))
-    setIsLoading(false)
-  }
-
-  const bossName = useSelector((store) => store.general.bossName)
-  const userId = useSelector((store) => store.general.userId)
-
-  const actions = (
-    <>
-      { battle_id 
-        ? <Group>
-            <CellButton disabled={isLoading} centered mode="primary" onClick={backToGame} >Вернуться в битву</CellButton>
-            <CellButton disabled={isLoading} centered mode="danger" onClick={forceFinish}>Покинуть</CellButton>
-            <CellButton centered onClick={() => pushPanel(EPanels.HELP)}>Правила</CellButton>
-          </Group>
-        : <Group>
-            <CellButton disabled={isLoading} centered mode="primary" onClick={startGame}>Начать игру</CellButton>
-            <CellButton disabled style={{cursor: "default"}}></CellButton>
-            <CellButton centered onClick={() => pushPanel(EPanels.HELP)}>Правила</CellButton>
-          </Group>
-      }
-    </>
-  )
-
-  const action = isInitializing 
-      ? <Spinner />
-      : actions
+  const [activeStory, setActiveStory] = useState('start_game')
+  const onStoryChange = (e) => setActiveStory(e.currentTarget.dataset.story)
 
   return (
     <Panel
       id={id}
       header={<PanelHeader separator={false}>{GAME_NAME}</PanelHeader>}
     >
-      <Placeholder
-        icon={<RobotAvatar slug={userId} size={96} />}
-        style={{marginTop: "10vh"}}
-        header={
-          <Title level="1" weight="semibold">
-            Пора собрать робота
-          </Title>
+      <Epic
+        activeStory={activeStory}
+        tabbar={
+          <Tabbar>
+            <TabbarItem
+              onClick={onStoryChange}
+              selected={activeStory === 'leader_board'}
+              data-story="leader_board"
+              text="Лидеры"
+            >
+              <Icon24StarsOutline width={24} height={24} />
+            </TabbarItem>
+            <TabbarItem
+              onClick={onStoryChange}
+              selected={activeStory === 'start_game'}
+              data-story="start_game"
+              text="Главная"
+            >
+              <Icon24RobotOutline width={24} height={24} />
+            </TabbarItem>
+            <TabbarItem
+              onClick={onStoryChange}
+              selected={activeStory === 'rules'}
+              data-story="rules"
+              text="Правила"
+            >
+              <Icon28InfoOutline width={24} height={24} />
+            </TabbarItem>
+          </Tabbar>
         }
-        action={action}
       >
-        Собери робота и сразись
-        <br />с повелителем свалки по имени
-        <br />
-        {bossName}
-      </Placeholder>
+        <View id="feed" activePanel="feed">
+          <Panel id="feed">
+            <PanelHeader left={<PanelHeaderBack />}>Новости</PanelHeader>
+            <Group style={{ height: '1000px' }}>
+              <Placeholder
+                icon={<Icon56NewsfeedOutline width={56} height={56} />}
+              />
+            </Group>
+          </Panel>
+        </View>
+        <View id="services" activePanel="services">
+          <Panel id="services">
+            <PanelHeader left={<PanelHeaderBack />}>Сервисы</PanelHeader>
+            <Group style={{ height: '1000px' }}>
+              <Placeholder
+                icon={<Icon28ServicesOutline width={56} height={56} />}
+              ></Placeholder>
+            </Group>
+          </Panel>
+        </View>
+        <StartGameView id="start_game" activePanel="start_game" />
+        <View id="clips" activePanel="clips">
+          <Panel id="clips">
+            <PanelHeader left={<PanelHeaderBack />}>Клипы</PanelHeader>
+            <Group style={{ height: '1000px' }}>
+              <Placeholder
+                icon={<Icon28ClipOutline width={56} height={56} />}
+              ></Placeholder>
+            </Group>
+          </Panel>
+        </View>
+        <View id="profile" activePanel="profile">
+          <Panel id="profile">
+            <PanelHeader left={<PanelHeaderBack />}>Профиль</PanelHeader>
+            <Group style={{ height: '1000px' }}>
+              <Placeholder
+                icon={<Icon28UserCircleOutline width={56} height={56} />}
+              ></Placeholder>
+            </Group>
+          </Panel>
+        </View>
+      </Epic>
     </Panel>
   )
 }
